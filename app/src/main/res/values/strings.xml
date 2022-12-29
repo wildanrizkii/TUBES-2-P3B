@@ -35,10 +35,12 @@
     <string name="buat_pertemuan">Buat Pertemuan</string>
     <string name="jadwal_dosen">Jadwal Dosen</string>
 
+    <string name="organizer">Organizer</string>
     <string name="jam">Jam</string>
     <string name="tanggal">Tanggal</string>
     <string name="partisipan">Partisipan</string>
 
     <string name="nama_dosen">Nama Dosen</string>
+    <string name="judul_pertemuan">judul_pertemuan</string>
 
 </resources>
