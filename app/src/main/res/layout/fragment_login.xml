@@ -22,8 +22,8 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/logo"
             android:layout_centerInParent="true"
+            android:layout_below="@+id/logo"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -31,7 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/noto_sans_bold"
-                android:text="SIGN IN"
+                android:text="Log In"
                 android:textColor="@color/black"
                 android:textSize="36sp">
 
@@ -48,6 +48,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
+                    android:layout_marginBottom="4dp"
                     android:fontFamily="@font/noto_sans_medium"
                     android:text="Email"
                     android:textColor="@color/black"
@@ -56,12 +57,11 @@
                 </TextView>
 
                 <EditText
-
                     android:layout_width="340dp"
                     android:layout_height="48dp"
                     android:autofillHints="emailAddress"
                     android:background="@drawable/bg_edit"
-                    android:hint="example@domain.com"
+                    android:hint="Enter your email"
                     android:inputType="textWebEmailAddress">
 
                 </EditText>
@@ -78,6 +78,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
+                    android:layout_marginBottom="4dp"
                     android:fontFamily="@font/noto_sans_medium"
                     android:text="Password"
                     android:textColor="@color/black"
@@ -90,7 +91,7 @@
                     android:layout_height="48dp"
                     android:autofillHints="password"
                     android:background="@drawable/bg_edit"
-                    android:hint="*********"
+                    android:hint="Enter your password"
                     android:inputType="textWebPassword">
 
                 </EditText>
@@ -107,6 +108,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
+                    android:layout_marginBottom="4dp"
                     android:fontFamily="@font/noto_sans_medium"
                     android:text="Role"
                     android:textColor="@color/black"
@@ -135,7 +137,7 @@
                     android:layout_gravity="center"
                     android:background="@drawable/button_rounded"
                     android:fontFamily="@font/noto_sans_medium"
-                    android:text="Sign In"
+                    android:text="Login"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="14sp">

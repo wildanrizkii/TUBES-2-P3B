@@ -25,6 +25,8 @@
     <string name="judul">Judul</string>
     <string name="tags">Tags</string>
     <string name="deskripsi">Deskripsi</string>
+    <string name="subtitle_deskripsi">Sidang Skripsi 1 dilakukan pada tanggal 15 Oktober 2024 dan Sidang Skripsi 2 dilakukan pada tanggal 4 Mei 2025.</string>
+
     <string name="filter">Filter</string>
     <string name="btn_simpan">Simpan</string>
 
