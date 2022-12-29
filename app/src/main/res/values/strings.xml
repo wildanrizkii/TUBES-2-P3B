@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">TUBES 2 P3B</string>
 
-    <!-- Home  -->
+    <!-- Home -->
     <string name="home">Home</string>
     <string name="welcome_title">Welcome to IF Apps</string>
     <string name="welcome_subtitle">Break tasks down into smaller tasks</string>
@@ -11,4 +11,12 @@
     <string name="pertemuan_subtitle">Buat pertemuan sekarang</string>
     <string name="pengumuman_title">Pengumuman</string>'
     <string name="pengumuman_subtitle">Lihat pengumuman terkini</string>
+
+    <!-- FRS -->
+    <string name="tahun_frs">Ganjil 2022 - 2023</string>
+    <string name="tambah_frs">Tambah Mata Kuliah</string>
+    <string name="prasyarat_frs">Prasyarat</string>
+
+
+
 </resources>

@@ -1,6 +1,161 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="36dp"
+            android:layout_marginTop="40dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/noto_sans_bold"
+                android:text="@string/FRS"
+                android:textColor="@color/black"
+                android:textSize="28dp">
+
+            </TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="40dp"
+                android:fontFamily="@font/noto_sans_regular"
+                android:text="@string/tahun_frs"
+                android:textColor="@color/black"
+                android:textSize="20dp">
+
+            </TextView>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tambah_matkul"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:fontFamily="@font/noto_sans_bold"
+                        android:text="@string/tambah_frs"
+                        android:textColor="@color/black"
+                        android:textSize="18sp">
+
+                    </TextView>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tambah_matkul"
+                        android:layout_marginTop="8dp">
+
+                        <Spinner
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:background="@drawable/bg_spinner">
+
+                        </Spinner>
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/prasyarat_matkul"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:fontFamily="@font/noto_sans_bold"
+                        android:text="@string/prasyarat_frs"
+                        android:textColor="@color/black"
+                        android:textSize="18sp">
+
+                    </TextView>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/prasyarat_matkul"
+                        android:layout_marginTop="8dp">
+
+                        <ListView
+                            android:layout_width="wrap_content"
+                            android:layout_height="320dp">
+
+                        </ListView>
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="40dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_batalkan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="28dp"
+                    android:width="140sp"
+                    android:background="@drawable/button_rounded"
+                    android:fontFamily="@font/noto_sans_medium"
+                    android:text="Batalkan"
+                    android:textAllCaps="false"
+                    android:textSize="14sp">
+
+                </Button>
+
+                <Button
+                    android:id="@+id/btn_ambil"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="140sp"
+                    android:background="@drawable/button_rounded"
+                    android:fontFamily="@font/noto_sans_medium"
+                    android:text="Ambil"
+                    android:textAllCaps="false"
+                    android:textSize="14sp">
+
+                </Button>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</FrameLayout>
