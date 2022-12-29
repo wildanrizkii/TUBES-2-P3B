@@ -17,6 +17,17 @@
     <string name="tambah_frs">Tambah Mata Kuliah</string>
     <string name="prasyarat_frs">Prasyarat</string>
 
+    <!-- Pengumuman -->
+    <string name="pengumuman">Pengumuman</string>
+    <string name="buat_pengumuman">Buat Pengumuman</string>
+    <string name="judul_pengumuman">judul_pengumuman</string>
 
+    <string name="judul">Judul</string>
+    <string name="tags">Tags</string>
+    <string name="deskripsi">Deskripsi</string>
+    <string name="filter">Filter</string>
+    <string name="btn_simpan">Simpan</string>
+
+    <!-- Pertemuan -->
 
 </resources>

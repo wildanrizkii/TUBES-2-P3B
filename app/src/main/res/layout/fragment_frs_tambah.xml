@@ -118,42 +118,42 @@
 
             </RelativeLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="40dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_batalkan"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginTop="40dp"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:layout_marginRight="28dp"
+                android:width="140sp"
+                android:background="@drawable/button_rounded"
+                android:fontFamily="@font/noto_sans_medium"
+                android:text="Batalkan"
+                android:textAllCaps="false"
+                android:textSize="14sp">
 
-                <Button
-                    android:id="@+id/btn_batalkan"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="28dp"
-                    android:width="140sp"
-                    android:background="@drawable/button_rounded"
-                    android:fontFamily="@font/noto_sans_medium"
-                    android:text="Batalkan"
-                    android:textAllCaps="false"
-                    android:textSize="14sp">
+            </Button>
 
-                </Button>
+            <Button
+                android:id="@+id/btn_ambil"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:width="140sp"
+                android:background="@drawable/button_rounded"
+                android:fontFamily="@font/noto_sans_medium"
+                android:text="Ambil"
+                android:textAllCaps="false"
+                android:textSize="14sp">
 
-                <Button
-                    android:id="@+id/btn_ambil"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:width="140sp"
-                    android:background="@drawable/button_rounded"
-                    android:fontFamily="@font/noto_sans_medium"
-                    android:text="Ambil"
-                    android:textAllCaps="false"
-                    android:textSize="14sp">
-
-                </Button>
-            </LinearLayout>
-
+            </Button>
         </LinearLayout>
 
     </RelativeLayout>

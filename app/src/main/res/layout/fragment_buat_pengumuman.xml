@@ -5,35 +5,27 @@
     >
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ImageView
-            android:id="@+id/logo"
-            android:layout_width="140dp"
-            android:layout_height="140dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:src="@drawable/logo_app">
-
-        </ImageView>
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        >
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_below="@+id/logo"
-            android:gravity="center"
+            android:layout_marginHorizontal="36dp"
+            android:layout_marginTop="40dp"
+            android:layout_centerHorizontal="true"
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/noto_sans_bold"
-                android:text="Log In"
+                android:text="@string/buat_pengumuman"
                 android:textColor="@color/black"
-                android:textSize="36sp">
+                android:textSize="28dp"
+                android:layout_marginBottom="64dp">
 
             </TextView>
 
@@ -41,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="36dp"
+                android:layout_marginTop="8dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -50,7 +42,7 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginBottom="4dp"
                     android:fontFamily="@font/noto_sans_medium"
-                    android:text="Email"
+                    android:text="@string/judul"
                     android:textColor="@color/black"
                     android:textSize="16sp">
 
@@ -61,7 +53,7 @@
                     android:layout_height="48dp"
                     android:autofillHints="emailAddress"
                     android:background="@drawable/bg_edit"
-                    android:hint="Enter your email"
+                    android:hint="Bimbingan Skripsi"
                     android:inputType="textWebEmailAddress">
 
                 </EditText>
@@ -71,16 +63,17 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_marginBottom="4dp"
                     android:fontFamily="@font/noto_sans_medium"
-                    android:text="Password"
+                    android:text="@string/tags"
                     android:textColor="@color/black"
                     android:textSize="16sp">
 
@@ -89,62 +82,70 @@
                 <EditText
                     android:layout_width="340dp"
                     android:layout_height="48dp"
-                    android:autofillHints="password"
+                    android:autofillHints="emailAddress"
                     android:background="@drawable/bg_edit"
-                    android:hint="Enter your password"
-                    android:inputType="textWebPassword">
+                    android:hint="Skripsi 1"
+                    android:inputType="textWebEmailAddress">
 
                 </EditText>
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_marginBottom="4dp"
                     android:fontFamily="@font/noto_sans_medium"
-                    android:text="Role"
+                    android:text="@string/deskripsi"
                     android:textColor="@color/black"
                     android:textSize="16sp">
 
                 </TextView>
 
-                <Spinner
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:background="@drawable/bg_spinner">
+                <EditText
+                    android:layout_width="340dp"
+                    android:layout_height="200dp"
+                    android:autofillHints="emailAddress"
+                    android:background="@drawable/bg_edit"
+                    android:hint="Ini deskripsi"
+                    android:maxLines="4"
+                    android:lines="4"
+                    android:inputType="textWebEmailAddress">
 
-                </Spinner>
+                </EditText>
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="40dp"
+            >
+
+            <Button
+                android:id="@+id/btn_ambil"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="36dp"
-                android:orientation="vertical">
+                android:width="140sp"
+                android:background="@drawable/button_rounded"
+                android:fontFamily="@font/noto_sans_medium"
+                android:text="Simpan"
+                android:textAllCaps="false"
+                android:textSize="14sp">
 
-                <Button
-                    android:layout_width="120dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/button_rounded"
-                    android:fontFamily="@font/noto_sans_medium"
-                    android:text="Login"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="14sp">
-
-                </Button>
-
-            </LinearLayout>
+            </Button>
 
         </LinearLayout>
 
