@@ -31,9 +31,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/noto_sans_bold"
-                android:text="Log In"
+                android:text="Login to IF Apps"
                 android:textColor="@color/black"
-                android:textSize="36sp">
+                android:textSize="28sp">
 
             </TextView>
 
