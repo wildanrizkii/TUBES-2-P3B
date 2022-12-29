@@ -1,4 +1,4 @@
-package com.example.tubes2p3b;
+package com.example.tubes2p3b.view;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -21,6 +21,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.tubes2p3b.databinding.FragmentLoginBinding;
 import com.example.tubes2p3b.model.Pengguna;
+import com.example.tubes2p3b.model.Spinner;
 import com.google.gson.Gson;
 
 public class LoginFragment extends Fragment {
@@ -38,7 +39,7 @@ public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentLoginBinding.inflate(inflater,container,false);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item,Spinner.ROLE);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, Spinner.ROLE);
         boolean[] first = {true};
         gson = new Gson();
         binding.spRole.setAdapter(adapter);
@@ -73,6 +74,7 @@ public class LoginFragment extends Fragment {
         pengguna = new Pengguna(email,password,role);
         String Base_URL = "https://ifportal.labftis.net/api/v1/authenticate";
         String json = gson.toJson(pengguna);
+
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
                 Base_URL, new Response.Listener<String>() {
