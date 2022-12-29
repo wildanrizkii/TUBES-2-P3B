@@ -10,14 +10,6 @@
                     <corners android:radius="10dp"></corners>
                 </shape>
             </item>
-
-            <item
-                android:drawable="@drawable/ic_arrow"
-                android:gravity="end"
-                android:width="36dp"
-                >
-
-            </item>
         </layer-list>
     </item>
 </selector>
