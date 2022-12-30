@@ -16,26 +16,43 @@
 <!--        android:layout_marginTop="-100dp"-->
 <!--        />-->
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:id="@+id/rl_image"
+        >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/"/>
-    </LinearLayout>
+                android:src="@drawable/welcome_screen_1_people_objects"
+                />
+        </LinearLayout>
+    </RelativeLayout>
+
+
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/ll_title"
+        android:layout_below="@+id/rl_image"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
         >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Set a clear agenda"
             android:textSize="30dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
             />
 
     </LinearLayout>
@@ -44,22 +61,32 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ll_title"
-        android:id="@+id/ll_desc">
+        android:id="@+id/ll_desc"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="By using the meeting feature, we can\nmanage meetings with lectures and\nstudents without time conflicts"
+            android:textSize="18dp"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            android:textAlignment="center"
             />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ll_desc">
+        android:layout_below="@+id/ll_desc"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp">
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="next"/>
+            android:text="next"
+            />
     </LinearLayout>
 
 </RelativeLayout>
