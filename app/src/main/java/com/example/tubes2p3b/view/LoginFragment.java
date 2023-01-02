@@ -12,22 +12,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.tubes2p3b.databinding.FragmentLoginBinding;
-import com.example.tubes2p3b.model.Pengguna;
-import com.example.tubes2p3b.model.Spinner;
+import com.example.tubes2p3b.model.User;
+import com.example.tubes2p3b.adapter.Spinner;
+import com.example.tubes2p3b.presenter.LoginPresenter;
+import com.example.tubes2p3b.presenter.WebServiceContract;
 import com.google.gson.Gson;
 
-public class LoginFragment extends Fragment {
+public class LoginFragment extends Fragment implements WebServiceContract.UI{
     FragmentLoginBinding binding;
     Gson gson;
-    Pengguna pengguna;
+    LoginPresenter presenter;
 
     public static LoginFragment newInstance() {
         LoginFragment fragment = new LoginFragment();
@@ -39,31 +34,9 @@ public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentLoginBinding.inflate(inflater,container,false);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, Spinner.ROLE);
-        boolean[] first = {true};
+        this.presenter = new LoginPresenter(this);
         gson = new Gson();
-        binding.spRole.setAdapter(adapter);
-        binding.spRole.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(first[0]){
-                    first[0] = false;
-                }else{
-                    if(i == 0){
-                        System.out.println("hello");
-                        Toast.makeText(getContext(),"Please select appropriate option!",Toast.LENGTH_SHORT).show();
-                    }
-                    else{
-                        Toast.makeText(getContext(),Spinner.ROLE[i]+ " Selected !", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });
         binding.btnLogin.setOnClickListener(this::onClickLogin);
-
         return binding.getRoot();
     }
 
@@ -71,33 +44,33 @@ public class LoginFragment extends Fragment {
         String email = binding.etEmail.getText().toString();
         String password = binding.etPassword.getText().toString();
         String role = binding.spRole.getSelectedItem().toString();
-        pengguna = new Pengguna(email,password,role);
-        String Base_URL = "https://ifportal.labftis.net/api/v1/authenticate";
-        String json = gson.toJson(pengguna);
+        presenter.user = new User(email,password,role);
+        String json = gson.toJson(presenter.user);
+        this.presenter.webConncetAuth(getActivity(),json);
+    }
 
-        RequestQueue queue = Volley.newRequestQueue(getActivity());
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                Base_URL, new Response.Listener<String>() {
+    @Override
+    public void spinnerRole(ArrayAdapter<String> adapter) {
+        binding.spRole.setAdapter(adapter);
+        boolean[] first = {true};
+        binding.spRole.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onResponse(String response) {
-                System.out.println(response);
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if(first[0]){
+                    first[0] = false;
+                }else{
+                    if(i == 0){
+                        Toast.makeText(getContext(),"Silahkan pilih Role yang lain!",Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        Toast.makeText(getContext(),Spinner.ROLE[i]+ " Dipilih !", Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
-        }, new Response.ErrorListener() {
             @Override
-            public void onErrorResponse(VolleyError error) {
-                System.out.println(error);
+            public void onNothingSelected(AdapterView<?> adapterView) {
             }
-        }){
-            @Override
-            public byte[] getBody() throws AuthFailureError {
-                return json.getBytes();
-            }
-            @Override
-            public String getBodyContentType() {
-                return "application/json";
-            }
-        };
-        queue.add(stringRequest);
+        });
     }
 }
 
