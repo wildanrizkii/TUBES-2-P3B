@@ -24,7 +24,14 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater,container,false);
 
+        binding.bigBoxFRS.setOnClickListener(this::onClickPage);
 
         return binding.getRoot();
+    }
+
+    private void onClickPage(View view) {
+        if(view == binding.bigBoxFRS){
+
+        }
     }
 }

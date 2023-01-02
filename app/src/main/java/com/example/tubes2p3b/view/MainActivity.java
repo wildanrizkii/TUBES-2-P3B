@@ -36,35 +36,14 @@ public class MainActivity extends AppCompatActivity implements IMain.UI {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         presenter = new MainPresenter(this);
-        this.loginFragment = LoginFragment.newInstance();
-        this.homeFragment = HomeFragment.newInstance();
-        fragmentManager = getSupportFragmentManager();
 
-        System.out.println(fragmentManager);
-
-        FragmentTransaction ft = fragmentManager.beginTransaction();
-//        ft.add(binding.container.getId(),this.loginFragment,"login")
-//                .commit();
-        this.fragmentManager.setFragmentResultListener("changePage", this,
-                new FragmentResultListener() {
-                    @Override
-                    public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-                        presenter.userToken.setToken(result.getString("token"));
-                        changePage(result.getString("pages"));
-                    }
-                });
+        System.out.println(binding.container);
+        presenter.inittransaction(binding.container);
+        presenter.setFragmentManagerResultListener();
     }
 
-    void changePage(String page){
-        FragmentTransaction ft = this.fragmentManager.beginTransaction();
-        if(page.equals("home")){
-            ft.remove(this.loginFragment);
-            ft.add(binding.container.getId(),this.homeFragment);
-        }
-        ft.commit();
-    }
+
 
     private void getUser(){
         String Base_URL = "https://ifportal.labftis.net/api/v1/users";
