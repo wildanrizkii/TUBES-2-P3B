@@ -123,7 +123,7 @@
                 android:layout_height="280dp">
 
                 <ImageView
-                    android:id="@+id/big_box"
+                    android:id="@+id/big_box_FRS"
                     android:layout_width="170dp"
                     android:layout_height="280dp"
                     android:layout_marginRight="10dp"
