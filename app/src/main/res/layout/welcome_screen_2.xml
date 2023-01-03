@@ -7,20 +7,11 @@
     android:layout_height="match_parent"
     >
 
-<!--    <ImageView-->
-<!--        android:id="@+id/ellipse_6"-->
-<!--        android:layout_width="300dp"-->
-<!--        android:layout_height="300dp"-->
-<!--        android:background="@drawable/eclipse_custom_shapes"-->
-<!--        android:layout_marginLeft="-100dp"-->
-<!--        android:layout_marginTop="-100dp"-->
-<!--        />-->
-
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="75dp"
+        android:layout_marginTop="100dp"
         android:id="@+id/rl_image"
         >
         <LinearLayout
@@ -49,10 +40,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Set a clear agenda"
+            android:text="Find out what's\nchanged"
             android:textSize="30dp"
             android:textStyle="bold"
             android:textColor="@color/black"
+            android:textAlignment="center"
             />
 
     </LinearLayout>
@@ -68,7 +60,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="By using the meeting feature, we can\nmanage meetings with lectures and\nstudents without time conflicts"
+            android:text="By using Notification feature,\nwe can see various kinds of the latest news"
             android:textSize="18dp"
             android:textColor="@color/black"
             android:textStyle="normal"
@@ -86,8 +78,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="next"
-            android:textColor="@color/white"
-            android:background="@drawable/custom_button"
             />
     </LinearLayout>
 

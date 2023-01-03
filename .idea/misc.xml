@@ -3,9 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/natsu/Documents/Tugas Kuliah/AIF183209.03 Pemrograman Pada Perangkat Bergerak/TUBES-2-P3B/app/src/main/res/drawable/custom_button.xml" value="0.1645" />
         <entry key="..\:/Users/natsu/Documents/Tugas Kuliah/AIF183209.03 Pemrograman Pada Perangkat Bergerak/TUBES-2-P3B/app/src/main/res/drawable/eclipse_custom_shapes.xml" value="0.1355" />
         <entry key="..\:/Users/natsu/Documents/Tugas Kuliah/AIF183209.03 Pemrograman Pada Perangkat Bergerak/TUBES-2-P3B/app/src/main/res/drawable/rectangle_custom_shapes.xml" value="0.1355" />
         <entry key="..\:/Users/natsu/Documents/Tugas Kuliah/AIF183209.03 Pemrograman Pada Perangkat Bergerak/TUBES-2-P3B/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Users/natsu/Documents/Tugas Kuliah/AIF183209.03 Pemrograman Pada Perangkat Bergerak/TUBES-2-P3B/app/src/main/res/layout/welcome_screen_2.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/natsu/Documents/Tugas Kuliah/AIF183209.03 Pemrograman Pada Perangkat Bergerak/TUBES-2-P3B/app/src/main/res/layout/welcome_screen_3.xml" value="0.22826086956521738" />
       </map>
     </option>
   </component>
