@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LifecycleOwner;
 
 import com.example.tubes2p3b.model.UserToken;
+import com.example.tubes2p3b.view.FRSFragment;
 import com.example.tubes2p3b.view.HomeFragment;
 import com.example.tubes2p3b.view.LoginFragment;
 
@@ -18,6 +19,7 @@ public class MainPresenter {
     HomeFragment homeFragment;
     public FragmentManager fragmentManager;
     LoginFragment loginFragment;
+    FRSFragment frsFragment;
     IMain.UI ui;
     public UserToken userToken;
     FrameLayout container;
@@ -27,6 +29,7 @@ public class MainPresenter {
         userToken = new UserToken();
         this.homeFragment = HomeFragment.newInstance();
         this.loginFragment = LoginFragment.newInstance();
+        this.frsFragment = FRSFragment.newInstance();
         fragmentManager = ui.getSupportFragmentManager();
     }
 
@@ -52,6 +55,8 @@ public class MainPresenter {
         if(page.equals("home")){
             ft.remove(this.loginFragment);
             ft.add((container.getId()),this.homeFragment);
+        } else if (page.equals("frsPage")){
+            ft.replace((container.getId()), this.frsFragment).addToBackStack(null);
         }
         ft.commit();
     }

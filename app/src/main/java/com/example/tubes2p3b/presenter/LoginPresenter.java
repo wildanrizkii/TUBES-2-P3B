@@ -87,6 +87,7 @@ public class LoginPresenter implements WebServiceContract.Websevice{
         this.token = gson.fromJson(response, UserRes.class);
         Bundle res = new Bundle();
         res.putString("token",this.token.getToken());
+        System.out.println(this.token.getToken() + " ho");
         res.putString("pages","home");
         getParentFragmentManager().setFragmentResult("changePage",res);
     }
