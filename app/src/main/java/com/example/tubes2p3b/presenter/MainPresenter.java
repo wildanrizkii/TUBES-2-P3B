@@ -23,8 +23,8 @@ public class MainPresenter {
     HomeFragment homeFragment;
     LoginFragment loginFragment;
     FrameLayout container;
-    PertemuanFragment pertemuanFragment;
     FrsFragment frsFragment;
+    PertemuanFragment pertemuanFragment;
     PengumumanFragment pengumumanFragment;
     IMain.UI ui;
 
@@ -64,13 +64,13 @@ public class MainPresenter {
         if(page.equals("home")){
             ft.remove(this.loginFragment);
             ft.add((container.getId()),this.homeFragment);
-        }else if(page.equals("frs")){
+        } else if (page.equals("frs")) {
             ft.remove(this.homeFragment);
-            ft.add((container.getId()),this.frsFragment);
+            ft.add((container.getId()), this.frsFragment);
         } else if (page.equals("pertemuan")) {
             ft.remove(this.homeFragment);
             ft.add((container.getId()),this.pertemuanFragment);
-        }else if (page.equals("pengumuman")) {
+        } else if (page.equals("pengumuman")) {
             ft.remove(this.homeFragment);
             ft.add((container.getId()),this.pengumumanFragment);
         }
