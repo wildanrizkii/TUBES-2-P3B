@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentResultListener;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -16,20 +17,25 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.tubes2p3b.databinding.ActivityMainBinding;
+import com.example.tubes2p3b.model.AddLecture;
+import com.example.tubes2p3b.model.AddStudent;
+import com.example.tubes2p3b.model.User;
 import com.example.tubes2p3b.presenter.IMain;
 import com.example.tubes2p3b.presenter.LoginPresenter;
 import com.example.tubes2p3b.presenter.MainPresenter;
+import com.google.gson.Gson;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity implements IMain.UI {
     MainPresenter presenter;
-    HomeFragment homeFragment;
-    LoginFragment loginFragment;
     ActivityMainBinding binding;
-    FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,36 +44,8 @@ public class MainActivity extends AppCompatActivity implements IMain.UI {
         setContentView(binding.getRoot());
         presenter = new MainPresenter(this);
 
-        System.out.println(binding.container);
         presenter.inittransaction(binding.container);
         presenter.setFragmentManagerResultListener();
-    }
 
-
-
-    private void getUser(){
-        String Base_URL = "https://ifportal.labftis.net/api/v1/users";
-        RequestQueue queue = Volley.newRequestQueue(this);
-        StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                Base_URL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-//                GetResponse(response);
-                System.out.println(response);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                System.out.println(error);
-            }
-        }){
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String,String> map = new HashMap<>();
-                map.put("Authorization","Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJfaWQiOiI2ZTY2ODZmMC0yOTZlLTRjNzItOGE0NS1hNmFjMWVkNDhlNDQiLCJyb2xlIjoiYWRtaW4ifSwiaWF0IjoxNjcyMzYwOTQ4fQ.KF5P7d9EBpH62c8y9cTccV9NIs3qZmInzLUp5SnjZqI");
-                return map;
-            }
-        };
-        queue.add(stringRequest);
     }
 }
