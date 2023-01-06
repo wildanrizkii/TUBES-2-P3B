@@ -11,6 +11,7 @@ import androidx.lifecycle.LifecycleOwner;
 
 import com.example.tubes2p3b.model.UserToken;
 import com.example.tubes2p3b.presenter.Interface.IMain;
+import com.example.tubes2p3b.view.FrsFragment;
 import com.example.tubes2p3b.view.HomeFragment;
 import com.example.tubes2p3b.view.LoginFragment;
 import com.example.tubes2p3b.view.PengumumanFragment;
@@ -22,8 +23,8 @@ public class MainPresenter {
     HomeFragment homeFragment;
     LoginFragment loginFragment;
     FrameLayout container;
+    FrsFragment frsFragment;
     PertemuanFragment pertemuanFragment;
-//    FrsFragment frsFragment;
     PengumumanFragment pengumumanFragment;
     IMain.UI ui;
 
@@ -32,7 +33,7 @@ public class MainPresenter {
         userToken = new UserToken();
         this.homeFragment = HomeFragment.newInstance();
         this.loginFragment = LoginFragment.newInstance();
-//        this.frsFragment = FrsFragment.newInstance();
+        this.frsFragment = FrsFragment.newInstance();
         this.pertemuanFragment = PertemuanFragment.newInstance();
         this.pengumumanFragment = PengumumanFragment.newInstance();
         fragmentManager = ui.getSupportFragmentManager();
@@ -63,13 +64,13 @@ public class MainPresenter {
         if(page.equals("home")){
             ft.remove(this.loginFragment);
             ft.add((container.getId()),this.homeFragment);
-        }else if(page.equals("frs")){
+        } else if (page.equals("frs")) {
             ft.remove(this.homeFragment);
-//            ft.add((container.getId()),this.frsFragment);
+            ft.add((container.getId()), this.frsFragment);
         } else if (page.equals("pertemuan")) {
             ft.remove(this.homeFragment);
             ft.add((container.getId()),this.pertemuanFragment);
-        }else if (page.equals("pengumuman")) {
+        } else if (page.equals("pengumuman")) {
             ft.remove(this.homeFragment);
             ft.add((container.getId()),this.pengumumanFragment);
         }
