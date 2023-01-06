@@ -19,7 +19,7 @@ public class FrsFragment extends Fragment {
         return fragment;
     }
 
-    public FRSFragment(){
+    public FrsFragment(){
 
     }
 
