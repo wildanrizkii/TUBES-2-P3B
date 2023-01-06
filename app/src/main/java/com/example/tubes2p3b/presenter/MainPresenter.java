@@ -11,7 +11,7 @@ import androidx.lifecycle.LifecycleOwner;
 
 import com.example.tubes2p3b.model.UserToken;
 import com.example.tubes2p3b.presenter.Interface.IMain;
-import com.example.tubes2p3b.view.FrsFragment;
+import com.example.tubes2p3b.view.FrsFragment1;
 import com.example.tubes2p3b.view.HomeFragment;
 import com.example.tubes2p3b.view.LoginFragment;
 import com.example.tubes2p3b.view.PengumumanFragment;
@@ -23,7 +23,7 @@ public class MainPresenter {
     HomeFragment homeFragment;
     LoginFragment loginFragment;
     FrameLayout container;
-    FrsFragment frsFragment;
+    FrsFragment1 frsFragment;
     PertemuanFragment pertemuanFragment;
     PengumumanFragment pengumumanFragment;
     IMain.UI ui;
@@ -33,7 +33,7 @@ public class MainPresenter {
         userToken = new UserToken();
         this.homeFragment = HomeFragment.newInstance();
         this.loginFragment = LoginFragment.newInstance();
-        this.frsFragment = FrsFragment.newInstance();
+        this.frsFragment = FrsFragment1.newInstance();
         this.pertemuanFragment = PertemuanFragment.newInstance();
         this.pengumumanFragment = PengumumanFragment.newInstance();
         fragmentManager = ui.getSupportFragmentManager();
