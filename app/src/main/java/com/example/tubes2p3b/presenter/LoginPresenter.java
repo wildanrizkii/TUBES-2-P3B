@@ -21,6 +21,7 @@ import com.example.tubes2p3b.model.User;
 import com.example.tubes2p3b.adapter.Spinner;
 import com.example.tubes2p3b.model.UserRes;
 import com.example.tubes2p3b.model.WebService;
+import com.example.tubes2p3b.presenter.Interface.ILogin;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
@@ -28,15 +29,15 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 
-public class LoginPresenter implements WebServiceContract.Websevice{
+public class LoginPresenter implements ILogin.Websevice{
     Gson gson;
     public Spinner spinner;
     public User user;
     public UserRes token;
     WebService webService;
-    WebServiceContract.UI ui;
+    ILogin.UI ui;
 
-    public LoginPresenter(WebServiceContract.UI ui){
+    public LoginPresenter(ILogin.UI ui){
         webService = new WebService();
         gson = new Gson();
         spinner=new Spinner();

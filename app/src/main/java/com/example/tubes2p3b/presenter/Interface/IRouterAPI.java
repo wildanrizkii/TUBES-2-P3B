@@ -1,4 +1,4 @@
-package com.example.tubes2p3b.presenter;
+package com.example.tubes2p3b.presenter.Interface;
 
 import android.content.Context;
 

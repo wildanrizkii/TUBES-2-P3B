@@ -1,12 +1,9 @@
 package com.example.tubes2p3b.presenter;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
-import androidx.fragment.app.FragmentManager;
-
-import com.example.tubes2p3b.view.HomeFragment;
+import com.example.tubes2p3b.presenter.Interface.IHome;
 
 public class HomePresenter {
     IHome.UI ui;
@@ -25,5 +22,7 @@ public class HomePresenter {
             res.putString("pages","pengumuman");
         }
         ui.getParentFragmentManager().setFragmentResult("changePage",res);
+
+
     }
 }
