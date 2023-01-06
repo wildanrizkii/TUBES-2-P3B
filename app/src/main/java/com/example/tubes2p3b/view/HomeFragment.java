@@ -39,3 +39,4 @@ public class HomeFragment extends Fragment implements IHome.UI{
         presenter.cangePage(view,binding.bigBoxFRS,binding.smallBoxPertemuan,binding.smallBoxPengumuman);
     }
 }
+///sdfgsdfgsdfgsdfgsfgdsfgdsfgsdgewrgvwerhbwer
