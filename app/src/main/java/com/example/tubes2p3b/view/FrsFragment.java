@@ -11,15 +11,15 @@ import androidx.fragment.app.Fragment;
 
 import com.example.tubes2p3b.databinding.FragmentFrsBinding;
 
-public class FrsFragment1 extends Fragment {
+public class FrsFragment extends Fragment {
     FragmentFrsBinding binding;
 
-    public static FrsFragment1 newInstance() {
-        FrsFragment1 fragment = new FrsFragment1();
+    public static FrsFragment newInstance() {
+        FrsFragment fragment = new FrsFragment();
         return fragment;
     }
 
-    public FrsFragment1(){
+    public FrsFragment(){
 
     }
 
