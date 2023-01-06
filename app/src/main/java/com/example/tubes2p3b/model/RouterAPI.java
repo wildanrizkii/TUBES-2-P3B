@@ -110,6 +110,32 @@ public class RouterAPI {
         queue.add(stringRequest);
     }
 
+    public void setAppointment(){
+        String Base_URL = "https://ifportal.labftis.net/api/v1/appointments/";
+        RequestQueue queue = Volley.newRequestQueue(ui.getContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                Base_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+//                GetResponse(response);
+                System.out.println(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println(error);
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> map = new HashMap<>();
+                map.put("Authorization","Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJfaWQiOiJhMzhjODJiNS1jYjNlLTRhZWUtOGZjOS0xNTVhNjA3MTEyYTgiLCJyb2xlIjoibGVjdHVyZXIifSwiaWF0IjoxNjcyNzMxNTgyfQ.AILXUwWboT2UaUw5xkAiDM4LDsjGvvqQJKdATGj6GPM");
+                return map;
+            }
+        };
+        queue.add(stringRequest);
+    }
+
     private void getResponseAnnounce(String response) throws JSONException {
         JSONObject jsonObject = new JSONObject(response);
         System.out.println(jsonObject.getJSONObject("metadata"));
