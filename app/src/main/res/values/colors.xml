@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="secondary">#EEF1FF</color>
+    <color name="colorBG">#7059FF</color>
 </resources>
