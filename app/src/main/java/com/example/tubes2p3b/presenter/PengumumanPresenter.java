@@ -1,6 +1,8 @@
 package com.example.tubes2p3b.presenter;
 
 import android.content.Context;
+import android.view.View;
+import android.widget.ListView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -9,10 +11,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.tubes2p3b.model.ListrPengumuman;
+import com.example.tubes2p3b.adapter.PengumumanAdapter;
+import com.example.tubes2p3b.model.ListPengumuman;
 import com.example.tubes2p3b.model.RouterAPI;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
@@ -23,23 +25,26 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 public class PengumumanPresenter implements IRouterAPI.UI{
+    PengumumanAdapter adapter;
+    private ArrayList<ListPengumuman> listPengumuman;
     IPengumuman.UI ui;
     RouterAPI api;
     String next;
-    ArrayList<ListrPengumuman> listPengumuman;
+    ListView container;
+
     public PengumumanPresenter(IPengumuman.UI ui) {
         this.ui = ui;
         api = new RouterAPI(ui);
     }
 
-    public void loadPengumuman(){
-        getAnnouncement();
+    public void loadPengumuman(ListView view){
+        container = view;
+        getAnnouncement(view);
     }
 
-    public void getAnnouncement(){
+    public void getAnnouncement(View adapter){
         String Base_URL = "https://ifportal.labftis.net/api/v1/announcements?limit=10";
         RequestQueue queue = Volley.newRequestQueue(ui.getContext());
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
@@ -74,9 +79,10 @@ public class PengumumanPresenter implements IRouterAPI.UI{
         JSONObject jsonObject = new JSONObject(response);
         JSONArray jsonArray = jsonObject.getJSONArray("data");
         this.next = jsonObject.getJSONObject("metadata").getString("next");
-        System.out.println(next);
-        listPengumuman = gson.fromJson(jsonArray.toString(),new TypeToken <ArrayList<ListrPengumuman>>(){}.getType());
-        System.out.println(listPengumuman.size());
+        listPengumuman = gson.fromJson(jsonArray.toString(),new TypeToken <ArrayList<ListPengumuman>>(){}.getType());
+        PengumumanAdapter adapter = new PengumumanAdapter(ui.getContext());
+        adapter.setListPengumumen(listPengumuman);
+        container.setAdapter(adapter);
     }
 
     public void getErrResponse(VolleyError response)  {

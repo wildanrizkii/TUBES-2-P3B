@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity implements IMain.UI, IRouter
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         presenter = new MainPresenter(this);
-
         presenter.inittransaction(binding.container);
         presenter.setFragmentManagerResultListener();
 
