@@ -13,19 +13,20 @@ import com.example.tubes2p3b.databinding.FragmentFrsBinding;
 
 public class FrsFragment extends Fragment {
     FragmentFrsBinding binding;
+
     public static FrsFragment newInstance() {
         FrsFragment fragment = new FrsFragment();
         return fragment;
     }
 
-    public FrsFragment() {
+    public FrsFragment(){
+
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentFrsBinding.inflate(getLayoutInflater(),container,false);
-
+        binding = FragmentFrsBinding.inflate(inflater, container, false);
 
         return binding.getRoot();
     }
