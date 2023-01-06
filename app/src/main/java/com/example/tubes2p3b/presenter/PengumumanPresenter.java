@@ -14,6 +14,8 @@ import com.android.volley.toolbox.Volley;
 import com.example.tubes2p3b.adapter.PengumumanAdapter;
 import com.example.tubes2p3b.model.ListPengumuman;
 import com.example.tubes2p3b.model.RouterAPI;
+import com.example.tubes2p3b.presenter.Interface.IPengumuman;
+import com.example.tubes2p3b.presenter.Interface.IRouterAPI;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

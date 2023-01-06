@@ -16,10 +16,10 @@ import com.example.tubes2p3b.databinding.FragmentLoginBinding;
 import com.example.tubes2p3b.model.User;
 import com.example.tubes2p3b.adapter.Spinner;
 import com.example.tubes2p3b.presenter.LoginPresenter;
-import com.example.tubes2p3b.presenter.WebServiceContract;
+import com.example.tubes2p3b.presenter.Interface.ILogin;
 import com.google.gson.Gson;
 
-public class LoginFragment extends Fragment implements WebServiceContract.UI{
+public class LoginFragment extends Fragment implements ILogin.UI{
     FragmentLoginBinding binding;
     Gson gson;
     LoginPresenter presenter;

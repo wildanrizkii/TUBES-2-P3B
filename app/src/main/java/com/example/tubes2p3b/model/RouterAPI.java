@@ -12,9 +12,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.example.tubes2p3b.presenter.IPengumuman;
-import com.example.tubes2p3b.presenter.IRouterAPI;
-import com.google.gson.Gson;
+import com.example.tubes2p3b.presenter.Interface.IRouterAPI;
 
 import org.json.JSONException;
 import org.json.JSONObject;

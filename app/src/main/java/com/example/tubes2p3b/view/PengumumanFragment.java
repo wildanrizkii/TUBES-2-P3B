@@ -9,10 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.tubes2p3b.adapter.PengumumanAdapter;
 import com.example.tubes2p3b.databinding.FragmentPengumumanBinding;
-import com.example.tubes2p3b.presenter.IPengumuman;
-import com.example.tubes2p3b.presenter.IRouterAPI;
+import com.example.tubes2p3b.presenter.Interface.IPengumuman;
 import com.example.tubes2p3b.presenter.PengumumanPresenter;
 
 public class PengumumanFragment extends Fragment implements IPengumuman.UI {

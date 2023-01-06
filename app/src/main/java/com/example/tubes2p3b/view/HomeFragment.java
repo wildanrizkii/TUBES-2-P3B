@@ -1,7 +1,6 @@
 package com.example.tubes2p3b.view;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.tubes2p3b.databinding.FragmentHomeBinding;
 import com.example.tubes2p3b.presenter.HomePresenter;
-import com.example.tubes2p3b.presenter.IHome;
+import com.example.tubes2p3b.presenter.Interface.IHome;
 
 public class HomeFragment extends Fragment implements IHome.UI{
     FragmentHomeBinding binding;
