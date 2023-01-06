@@ -42,10 +42,11 @@ public class MainPresenter {
     public void inittransaction(FrameLayout container){
         this.container = container;
         FragmentTransaction ft = fragmentManager.beginTransaction();
-        ft.add(container.getId(),this.loginFragment,"login")
-                .commit();
-//        ft.add(container.getId(),this.homeFragment,"login")
+//        ft.add(container.getId(),this.loginFragment,"login")
 //                .commit();
+//        ft.add(container.getId(),this.homeFragment,"login")
+        ft.add(container.getId(),this.pengumumanFragment,"")
+                .commit();
     }
 
     public void setFragmentManagerResultListener(){

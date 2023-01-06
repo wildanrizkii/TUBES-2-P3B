@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentResultListener;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -19,8 +20,10 @@ import com.android.volley.toolbox.Volley;
 import com.example.tubes2p3b.databinding.ActivityMainBinding;
 import com.example.tubes2p3b.model.AddLecture;
 import com.example.tubes2p3b.model.AddStudent;
+import com.example.tubes2p3b.model.RouterAPI;
 import com.example.tubes2p3b.model.User;
 import com.example.tubes2p3b.presenter.IMain;
+import com.example.tubes2p3b.presenter.IRouterAPI;
 import com.example.tubes2p3b.presenter.LoginPresenter;
 import com.example.tubes2p3b.presenter.MainPresenter;
 import com.google.gson.Gson;
@@ -33,7 +36,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class MainActivity extends AppCompatActivity implements IMain.UI {
+public class MainActivity extends AppCompatActivity implements IMain.UI, IRouterAPI.UI {
     MainPresenter presenter;
     ActivityMainBinding binding;
 
@@ -47,5 +50,10 @@ public class MainActivity extends AppCompatActivity implements IMain.UI {
         presenter.inittransaction(binding.container);
         presenter.setFragmentManagerResultListener();
 
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
     }
 }
