@@ -64,6 +64,7 @@
                 </LinearLayout>
 
                 <ListView
+                    android:id="@+id/list_item"
                     android:layout_below="@+id/filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">

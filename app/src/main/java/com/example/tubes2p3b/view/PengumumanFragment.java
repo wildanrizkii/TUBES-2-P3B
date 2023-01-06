@@ -9,9 +9,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.tubes2p3b.adapter.PengumumanAdapter;
 import com.example.tubes2p3b.databinding.FragmentPengumumanBinding;
+import com.example.tubes2p3b.presenter.IPengumuman;
+import com.example.tubes2p3b.presenter.IRouterAPI;
+import com.example.tubes2p3b.presenter.PengumumanPresenter;
 
-public class PengumumanFragment extends Fragment {
+public class PengumumanFragment extends Fragment implements IPengumuman.UI {
     FragmentPengumumanBinding binding;
 
     public static PengumumanFragment newInstance() {
@@ -26,8 +30,13 @@ public class PengumumanFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentPengumumanBinding.inflate(inflater,container,false);
-
-        
+        PengumumanPresenter presenter = new PengumumanPresenter(this);
+        presenter.loadPengumuman(binding.listItem);
+//        binding.listItem.setOnClickListener(this::onClickList);
         return binding.getRoot();
+    }
+
+    private void onClickList(View view) {
+
     }
 }

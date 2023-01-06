@@ -12,7 +12,9 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.example.tubes2p3b.presenter.IPengumuman;
 import com.example.tubes2p3b.presenter.IRouterAPI;
+import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,6 +27,7 @@ public class RouterAPI {
         this.ui = ui;
     }
 
+
     public void getAnnouncement(){
         String Base_URL = "https://ifportal.labftis.net/api/v1/announcements/";
         RequestQueue queue = Volley.newRequestQueue(ui.getContext());
@@ -32,8 +35,12 @@ public class RouterAPI {
                 Base_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-//                GetResponse(response);
-                System.out.println(response);
+                try {
+                    getResponseAnnounce(response);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+//                System.out.println(response);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -51,6 +58,8 @@ public class RouterAPI {
         queue.add(stringRequest);
     }
 
+
+
     public void getUser(){
         String Base_URL = "https://ifportal.labftis.net/api/v1/users";
         RequestQueue queue = Volley.newRequestQueue(ui.getContext());
@@ -58,7 +67,7 @@ public class RouterAPI {
                 Base_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-//                GetResponse(response);
+//                getResponse(response);
                 System.out.println(response);
             }
         }, new Response.ErrorListener() {
@@ -101,6 +110,12 @@ public class RouterAPI {
             }
         };
         queue.add(stringRequest);
+    }
+
+    private void getResponseAnnounce(String response) throws JSONException {
+        JSONObject jsonObject = new JSONObject(response);
+        System.out.println(jsonObject.getJSONObject("metadata"));
+
     }
 
     public void getErrResponse(VolleyError response)  {
