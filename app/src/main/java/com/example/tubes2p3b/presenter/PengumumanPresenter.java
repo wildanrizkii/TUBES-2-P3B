@@ -1,8 +1,15 @@
 package com.example.tubes2p3b.presenter;
 
-import android.content.Context;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentResultListener;
+import androidx.fragment.app.FragmentResultOwner;
+import androidx.lifecycle.LifecycleOwner;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -12,6 +19,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.tubes2p3b.adapter.PengumumanAdapter;
+import com.example.tubes2p3b.model.DetailPengumuman;
 import com.example.tubes2p3b.model.ListPengumuman;
 import com.example.tubes2p3b.model.RouterAPI;
 import com.example.tubes2p3b.presenter.Interface.IPengumuman;
@@ -28,22 +36,33 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PengumumanPresenter implements IRouterAPI.UI{
+public class PengumumanPresenter{
     PengumumanAdapter adapter;
     private ArrayList<ListPengumuman> listPengumuman;
     IPengumuman.UI ui;
     RouterAPI api;
     String next;
     ListView container;
-
+    Gson gson = new Gson();
+    DetailPengumuman detailPengumuman;
     public PengumumanPresenter(IPengumuman.UI ui) {
         this.ui = ui;
-        api = new RouterAPI(ui);
     }
 
     public void loadPengumuman(ListView view){
         container = view;
         getAnnouncement(view);
+    }
+    public FragmentResultOwner getParentFragmentManager() {
+        return ui.getParentFragmentManager();
+    }
+
+    public void itemClick(){
+        container.setOnItemClickListener(this::onClickItem);
+    }
+
+    private void onClickItem(AdapterView<?> adapterView, View view, int i, long l) {
+        getDetailAnnouncement(listPengumuman.get(i).getId());
     }
 
     public void getAnnouncement(View adapter){
@@ -75,14 +94,51 @@ public class PengumumanPresenter implements IRouterAPI.UI{
         queue.add(stringRequest);
     }
 
+    public void getDetailAnnouncement(String id){
+        String Base_URL = "https://ifportal.labftis.net/api/v1/announcements/"+id;
+        RequestQueue queue = Volley.newRequestQueue(ui.getContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.GET,
+                Base_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    getResponseDetailAnnounce(response);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                getErrResponse(error);
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> map = new HashMap<>();
+                map.put("Authorization","Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJfaWQiOiIwOWU2N2M3Zi1iODNhLTQzMjgtYTMxMS03ZWVjZTA5MGI1MTUiLCJyb2xlIjoic3R1ZGVudCJ9LCJpYXQiOjE2NzMwNTI4NjV9.DVVZGOwoNjje5zVlhIrzeRkmpfMcru62IHgggyw_4PU");
+                return map;
+            }
+        };
+        queue.add(stringRequest);
+    }
+
+    private void getResponseDetailAnnounce(String response) throws JSONException {
+        detailPengumuman = gson.fromJson(response,DetailPengumuman.class);
+        Bundle res = new Bundle();
+        Bundle page = new Bundle();
+        res.putParcelable("detail", (Parcelable) detailPengumuman);
+        page.putString("pages","dPengumuman");
+        ui.getParentFragmentManager().setFragmentResult("changePage",page);
+        getParentFragmentManager().setFragmentResult("detailPengumuman",res);
+    }
     private void getResponseAnnounce(String response) throws JSONException {
-        Gson gson = new Gson();
         listPengumuman = new ArrayList<>();
         JSONObject jsonObject = new JSONObject(response);
         JSONArray jsonArray = jsonObject.getJSONArray("data");
         this.next = jsonObject.getJSONObject("metadata").getString("next");
-        listPengumuman = gson.fromJson(jsonArray.toString(),new TypeToken <ArrayList<ListPengumuman>>(){}.getType());
-        PengumumanAdapter adapter = new PengumumanAdapter(ui.getContext());
+        listPengumuman = (gson.fromJson(jsonArray.toString(),new TypeToken <ArrayList<ListPengumuman>>(){}.getType())) ;
+        adapter = new PengumumanAdapter(ui.getContext());
         adapter.setListPengumumen(listPengumuman);
         container.setAdapter(adapter);
     }
@@ -103,10 +159,5 @@ public class PengumumanPresenter implements IRouterAPI.UI{
                 e.printStackTrace();
             }
         }
-    }
-
-    @Override
-    public Context getContext() {
-        return ui.getContext();
     }
 }

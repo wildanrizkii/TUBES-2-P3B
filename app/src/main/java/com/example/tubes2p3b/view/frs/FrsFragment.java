@@ -1,4 +1,4 @@
-package com.example.tubes2p3b.view;
+package com.example.tubes2p3b.view.frs;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,23 +9,24 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.tubes2p3b.databinding.FragmentPertemuanBinding;
+import com.example.tubes2p3b.databinding.FragmentFrsBinding;
 
-public class PertemuanFragment extends Fragment {
-    FragmentPertemuanBinding binding;
+public class FrsFragment extends Fragment {
+    FragmentFrsBinding binding;
 
-    public static PertemuanFragment newInstance() {
-        PertemuanFragment fragment = new PertemuanFragment();
+    public static FrsFragment newInstance() {
+        FrsFragment fragment = new FrsFragment();
         return fragment;
     }
 
-    public PertemuanFragment() {
+    public FrsFragment(){
+
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentPertemuanBinding.inflate(getLayoutInflater(),container,false);
+        binding = FragmentFrsBinding.inflate(inflater, container, false);
 
         return binding.getRoot();
     }

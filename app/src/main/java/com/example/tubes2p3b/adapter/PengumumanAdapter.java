@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 
 import com.example.tubes2p3b.databinding.ListPengumumanBinding;
@@ -46,4 +47,6 @@ public class PengumumanAdapter extends BaseAdapter {
         binding.tvTags.setText(listPengumuman.getTags());
         return binding.getRoot();
     }
+
+
 }

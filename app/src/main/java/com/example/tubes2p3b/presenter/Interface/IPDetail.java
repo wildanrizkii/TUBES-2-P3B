@@ -4,9 +4,10 @@ import android.content.Context;
 
 import androidx.fragment.app.FragmentResultOwner;
 
-public interface IPengumuman {
-    interface UI {
+public interface IPDetail {
+    interface UI{
         Context getContext();
         FragmentResultOwner getParentFragmentManager();
+        void setContent(String title,String tags,String deskripsi);
     }
 }

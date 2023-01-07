@@ -1,4 +1,4 @@
-package com.example.tubes2p3b.view;
+package com.example.tubes2p3b.view.home;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,17 +10,23 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.tubes2p3b.databinding.FragmentHomeBinding;
+import com.example.tubes2p3b.model.UserToken;
 import com.example.tubes2p3b.presenter.HomePresenter;
 import com.example.tubes2p3b.presenter.Interface.IHome;
 
 public class HomeFragment extends Fragment implements IHome.UI{
     FragmentHomeBinding binding;
     HomePresenter presenter;
+    UserToken token;
 
     public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
         return fragment;
     }
+    public void setToken(UserToken token) {
+        this.token = token;
+    }
+
     public HomeFragment() {   }
 
     @Nullable
@@ -39,4 +45,3 @@ public class HomeFragment extends Fragment implements IHome.UI{
         presenter.cangePage(view,binding.bigBoxFRS,binding.smallBoxPertemuan,binding.smallBoxPengumuman);
     }
 }
-///sdfgsdfgsdfgsdfgsfgdsfgdsfgsdgewrgvwerhbwer
