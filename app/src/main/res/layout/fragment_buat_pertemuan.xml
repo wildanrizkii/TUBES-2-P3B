@@ -49,6 +49,7 @@
                 </TextView>
 
                 <EditText
+                    android:id="@+id/et_judul"
                     android:layout_width="340dp"
                     android:layout_height="48dp"
                     android:autofillHints="emailAddress"
@@ -85,6 +86,7 @@
                     android:orientation="horizontal">
 
                     <EditText
+                        android:id="@+id/et_jam"
                         android:layout_width="288dp"
                         android:layout_height="48dp"
                         android:autofillHints="emailAddress"
@@ -142,6 +144,7 @@
                     </EditText>
 
                     <ImageView
+                        android:id="@+id/et_tanggal"
                         android:layout_width="36dp"
                         android:layout_height="36dp"
                         android:layout_gravity="center"
@@ -162,7 +165,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
+                        android:layout_marginStart="8dp"
                         android:layout_marginBottom="4dp"
                         android:fontFamily="@font/noto_sans_medium"
                         android:text="@string/partisipan"
@@ -172,6 +175,7 @@
                     </TextView>
 
                     <EditText
+                        android:id="@+id/et_partisipan"
                         android:layout_width="340dp"
                         android:layout_height="48dp"
                         android:autofillHints="emailAddress"
@@ -182,13 +186,16 @@
                     </EditText>
 
                     <TextView
+                        android:id="@+id/btn_jadwal_dosen"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
                         android:layout_marginLeft="8dp"
                         android:text="Lihat jadwal dosen"
                         android:textColor="@color/purple_500"
-                        android:fontFamily="@font/noto_sans_regular">
+                        android:fontFamily="@font/noto_sans_regular"
+                        android:clickable="true"
+                        android:focusable="true">
 
                     </TextView>
 
@@ -214,6 +221,7 @@
                     </TextView>
 
                     <EditText
+                        android:id="@+id/et_deskripsi"
                         android:layout_width="340dp"
                         android:layout_height="48dp"
                         android:autofillHints="emailAddress"

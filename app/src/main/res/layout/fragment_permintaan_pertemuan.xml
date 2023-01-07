@@ -162,9 +162,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="28dp"
                 android:width="140sp"
-                android:background="@drawable/button_rounded"
+                android:background="@drawable/button_rounded_outline"
                 android:fontFamily="@font/noto_sans_medium"
                 android:text="Reject"
+                android:textColor="@color/colorBG"
                 android:textAllCaps="false"
                 android:textSize="14sp">
 

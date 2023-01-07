@@ -20,9 +20,8 @@
             android:layout_marginBottom="6sp"
             android:text="Matakuliah"
             android:textColor="@color/black"
-            android:fontFamily="@font/noto_sans_bold"
-            android:textSize="16sp"
-            android:textStyle="bold">
+            android:fontFamily="@font/noto_sans_medium"
+            android:textSize="18sp">
 
         </TextView>
 

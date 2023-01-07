@@ -22,9 +22,8 @@
             android:layout_marginBottom="6sp"
             android:text="Judul pengumuman"
             android:textColor="@color/black"
-            android:fontFamily="@font/noto_sans_bold"
-            android:textSize="16sp"
-            android:textStyle="bold">
+            android:fontFamily="@font/noto_sans_medium"
+            android:textSize="18sp">
 
         </TextView>
 
@@ -32,7 +31,7 @@
             android:id="@+id/tv_tags"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="6sp"
+            android:layout_marginBottom="10sp"
             android:text="Tags"
             android:fontFamily="@font/noto_sans_regular"
             android:textSize="14sp">
@@ -49,8 +48,8 @@
         >
         <ImageView
             android:id="@+id/iv_dot"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
             android:src="@drawable/purple_dot"
             android:clickable="true">
 

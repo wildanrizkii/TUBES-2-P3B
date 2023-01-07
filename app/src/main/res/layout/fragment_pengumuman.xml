@@ -67,10 +67,44 @@
                     android:id="@+id/list_item"
                     android:layout_below="@+id/filter"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="388dp">
                 </ListView>
 
             </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="40dp"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/noto_sans_regular"
+                android:textColor="@color/black"
+                android:text="Ingin membuat pengumuman baru?">
+
+            </TextView>
+            <Button
+                android:id="@+id/btn_mark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:width="220sp"
+                android:background="@drawable/button_rounded"
+                android:fontFamily="@font/noto_sans_medium"
+                android:text="Buat pengumuman"
+                android:textAllCaps="false"
+                android:textSize="14sp">
+
+            </Button>
 
         </LinearLayout>
 
