@@ -105,7 +105,7 @@ public class LoginPresenter implements ILogin.Websevice{
                 body = new String(response.networkResponse.data,"UTF-8");
                 JSONObject object = new JSONObject(body);
                 if (object.get("errcode").toString().equals("E_AUTH_FAILED")){
-                    Toast.makeText((ui.getContext()),"salah password atau email atau role",Toast.LENGTH_LONG).show();
+                    Toast.makeText((ui.getContext()),"Data tidak sesuai",Toast.LENGTH_LONG).show();
                 }
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();

@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements IMain.UI, IRouter
 
         RouterAPI api = new RouterAPI(this);
 //        api.getAcademicYears();
-//        api.getUser();
+        api.getUser();
 //        api.getDetailAnnouncement();
     }
 
