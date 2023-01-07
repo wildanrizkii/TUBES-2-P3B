@@ -91,7 +91,6 @@ public class LoginPresenter implements ILogin.Websevice{
         Bundle res = new Bundle();
         res.putString("token",this.token.getToken());
         res.putString("pages","home");
-        System.out.println(this.token.getToken());
         ui.getParentFragmentManager().setFragmentResult("changePage",res);
     }
 
