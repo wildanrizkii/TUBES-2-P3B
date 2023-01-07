@@ -1,5 +1,6 @@
 package com.example.tubes2p3b.view.login;
 
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,7 @@ public class LoginFragment extends Fragment implements ILogin.UI{
     FragmentLoginBinding binding;
     Gson gson;
     LoginPresenter presenter;
+    AnimationDrawable animationDrawable;
 
     public static LoginFragment newInstance() {
         LoginFragment fragment = new LoginFragment();
@@ -36,6 +38,10 @@ public class LoginFragment extends Fragment implements ILogin.UI{
         binding = FragmentLoginBinding.inflate(inflater,container,false);
         this.presenter = new LoginPresenter(this);
         gson = new Gson();
+        animationDrawable = (AnimationDrawable) binding.bgAnimation.getBackground();
+        animationDrawable.setEnterFadeDuration(4500);
+        animationDrawable.setExitFadeDuration(4500);
+        animationDrawable.start();
         binding.btnLogin.setOnClickListener(this::onClickLogin);
         return binding.getRoot();
     }

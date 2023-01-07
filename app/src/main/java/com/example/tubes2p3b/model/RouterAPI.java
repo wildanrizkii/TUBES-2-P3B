@@ -28,6 +28,35 @@ public class RouterAPI {
         this.ui = ui;
     }
 
+    public void postUser(){
+        String Base_URL = "https://ifportal.labftis.net/api/v1/users/";
+        RequestQueue queue = Volley.newRequestQueue(ui.getContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                Base_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    getResponseAnnounce(response);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+//                System.out.println(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                getErrResponse(error);
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> map = new HashMap<>();
+                map.put("Authorization","Bearer " + tokenAdmin);
+                return map;
+            }
+        };
+        queue.add(stringRequest);
+    }
 
     public void getAnnouncement(){
         String Base_URL = "https://ifportal.labftis.net/api/v1/announcements/";

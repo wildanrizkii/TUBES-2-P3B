@@ -13,4 +13,9 @@
     <color name="third">#6534ED</color>
     <color name="secondaryBG">#5900FF</color>
 
+    <color name="animation_bg_1">#BAF2FF</color>
+    <color name="animation_bg_2">#F1E2FF</color>
+    <color name="animation_bg_3">#C9FFFF</color>
+    <color name="animation_bg_4">#FEE1FF</color>
+
 </resources>

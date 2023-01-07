@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements IMain.UI, IRouter
 //        api.getAcademicYears();
         api.getUser();
 //        api.getDetailAnnouncement();
+        api.postUser();
     }
 
     @Override
