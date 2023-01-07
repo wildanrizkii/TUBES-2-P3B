@@ -47,11 +47,13 @@ public class PengumumanPresenter{
     DetailPengumuman detailPengumuman;
     public PengumumanPresenter(IPengumuman.UI ui) {
         this.ui = ui;
+        listPengumuman = new ArrayList<>();
     }
 
     public void loadPengumuman(ListView view){
         container = view;
-        getAnnouncement(view);
+        getAnnouncement();
+
     }
     public FragmentResultOwner getParentFragmentManager() {
         return ui.getParentFragmentManager();
@@ -65,8 +67,35 @@ public class PengumumanPresenter{
         getDetailAnnouncement(listPengumuman.get(i).getId());
     }
 
-    public void getAnnouncement(View adapter){
+    public void getAnnouncement(){
         String Base_URL = "https://ifportal.labftis.net/api/v1/announcements?limit=10";
+        RequestQueue queue = Volley.newRequestQueue(ui.getContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.GET,
+                Base_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    getResponseAnnounce(response);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                getErrResponse(error);
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> map = new HashMap<>();
+                map.put("Authorization","Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJfaWQiOiI2ZTY2ODZmMC0yOTZlLTRjNzItOGE0NS1hNmFjMWVkNDhlNDQiLCJyb2xlIjoiYWRtaW4ifSwiaWF0IjoxNjcyMzYwOTQ4fQ.KF5P7d9EBpH62c8y9cTccV9NIs3qZmInzLUp5SnjZqI");
+                return map;
+            }
+        };
+        queue.add(stringRequest);
+    }public void getAnnouncement(String str){
+        String Base_URL = "https://ifportal.labftis.net/api/v1/announcements?limit=10&cursor="+str;
         RequestQueue queue = Volley.newRequestQueue(ui.getContext());
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
                 Base_URL, new Response.Listener<String>() {
@@ -133,15 +162,23 @@ public class PengumumanPresenter{
         getParentFragmentManager().setFragmentResult("detailPengumuman",res);
     }
     private void getResponseAnnounce(String response) throws JSONException {
-        listPengumuman = new ArrayList<>();
+        this.next ="";
+        ArrayList<ListPengumuman> simpan;
         JSONObject jsonObject = new JSONObject(response);
         JSONArray jsonArray = jsonObject.getJSONArray("data");
         this.next = jsonObject.getJSONObject("metadata").getString("next");
-        listPengumuman = (gson.fromJson(jsonArray.toString(),new TypeToken <ArrayList<ListPengumuman>>(){}.getType())) ;
+        simpan = gson.fromJson(jsonArray.toString(),new TypeToken <ArrayList<ListPengumuman>>(){}.getType());
+        for (ListPengumuman list: simpan) {
+            listPengumuman.add(list);
+        }
+        if(this.next.length()>0&&!this.next.equals("null")){
+            getAnnouncement(this.next);
+        }
         adapter = new PengumumanAdapter(ui.getContext());
         adapter.setListPengumumen(listPengumuman);
         container.setAdapter(adapter);
     }
+
 
     public void getErrResponse(VolleyError response)  {
         String body;

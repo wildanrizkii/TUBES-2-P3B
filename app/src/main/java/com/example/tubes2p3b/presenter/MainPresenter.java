@@ -20,7 +20,7 @@ import com.example.tubes2p3b.view.pertemuan.PertemuanFragment;
 
 public class MainPresenter {
     public FragmentManager fragmentManager;
-    public UserToken userToken;
+    UserToken userToken;
     HomeFragment homeFragment;
     LoginFragment loginFragment;
     FrameLayout container;
