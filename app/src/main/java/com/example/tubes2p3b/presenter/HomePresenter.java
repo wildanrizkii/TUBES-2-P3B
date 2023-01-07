@@ -23,6 +23,5 @@ public class HomePresenter {
         }
         ui.getParentFragmentManager().setFragmentResult("changePage",res);
 
-
     }
 }

@@ -4,6 +4,7 @@ import static com.example.tubes2p3b.model.WebService.AUTHENTICATE;
 import static com.example.tubes2p3b.model.WebService.JSON;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
@@ -22,6 +23,7 @@ import com.example.tubes2p3b.adapter.Spinner;
 import com.example.tubes2p3b.model.UserRes;
 import com.example.tubes2p3b.model.WebService;
 import com.example.tubes2p3b.presenter.Interface.ILogin;
+import com.example.tubes2p3b.presenter.Interface.IPengumuman;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
@@ -79,7 +81,7 @@ public class LoginPresenter implements ILogin.Websevice{
         queue.add(stringRequest);
     }
 
-    private FragmentResultOwner getParentFragmentManager() {
+    public FragmentResultOwner getParentFragmentManager() {
         return ui.getParentFragmentManager();
     }
 
@@ -89,7 +91,8 @@ public class LoginPresenter implements ILogin.Websevice{
         Bundle res = new Bundle();
         res.putString("token",this.token.getToken());
         res.putString("pages","home");
-        getParentFragmentManager().setFragmentResult("changePage",res);
+        System.out.println(this.token.getToken());
+        ui.getParentFragmentManager().setFragmentResult("changePage",res);
     }
 
     public void getErrResponse(VolleyError response)  {
@@ -110,5 +113,9 @@ public class LoginPresenter implements ILogin.Websevice{
                 e.printStackTrace();
             }
         }
+    }
+
+    public Context getContext() {
+        return getContext();
     }
 }
