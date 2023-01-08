@@ -48,12 +48,16 @@ public class DetailPengumuman implements Parcelable {
 
     public String getTags() {
         String t ="";
+        int i =0;
         for (Tags tag: this.tags ) {
             if(this.tags.size()==1){
                 t+=tag.getTag();
-            } else {
-                t+=tag.getTag()+ " ";
+            } else if(this.tags.size()>1&&i<this.tags.size()-1){
+                t+=tag.getTag()+ ", ";
+            } else{
+                t+=tag.getTag();
             }
+            i ++;
         }
         return t;
     }

@@ -13,6 +13,6 @@ public interface ILogin {
         FragmentResultOwner getParentFragmentManager();
     }
     interface Websevice{
-        void webConncetAuth(Activity activity, String json);
+        void webConncetAuth(String json);
     }
 }
