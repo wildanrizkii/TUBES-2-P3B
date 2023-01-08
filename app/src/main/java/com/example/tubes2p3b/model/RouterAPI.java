@@ -45,7 +45,7 @@ public class RouterAPI {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                getErrResponse(error);
+//                getErrResponse(error);
             }
         }){
             @Override
