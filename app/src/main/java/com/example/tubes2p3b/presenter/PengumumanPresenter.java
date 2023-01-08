@@ -168,6 +168,7 @@ public class PengumumanPresenter{
         JSONArray jsonArray = jsonObject.getJSONArray("data");
         this.next = jsonObject.getJSONObject("metadata").getString("next");
         simpan = gson.fromJson(jsonArray.toString(),new TypeToken <ArrayList<ListPengumuman>>(){}.getType());
+        System.out.println(jsonArray);
         for (ListPengumuman list: simpan) {
             listPengumuman.add(list);
         }
