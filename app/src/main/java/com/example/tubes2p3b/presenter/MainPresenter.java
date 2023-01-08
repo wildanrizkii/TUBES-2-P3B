@@ -1,7 +1,11 @@
 package com.example.tubes2p3b.presenter;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
@@ -29,6 +33,7 @@ public class MainPresenter {
     PengumumanFragment pengumumanFragment;
     DetailPengumumanFragment detailPengumumanFragment;
     IMain.UI ui;
+    ConnectivityManager connectivityManager ;
 
     public MainPresenter(IMain.UI ui){
         this.ui = ui;
@@ -45,6 +50,11 @@ public class MainPresenter {
     public void inittransaction(FrameLayout container){
         this.container = container;
         FragmentTransaction ft = fragmentManager.beginTransaction();
+        connectivityManager = (ConnectivityManager) ui.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo isOnlien = connectivityManager.getActiveNetworkInfo();
+        if(isOnlien == null){
+            Toast.makeText(ui.getContext(), "Anda sedang offline",Toast.LENGTH_LONG).show();
+        }
         ft.add(container.getId(),this.loginFragment,"login")
                 .commit();
 //        ft.add(container.getId(),this.homeFragment,"login")

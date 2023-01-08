@@ -1,6 +1,5 @@
 package com.example.tubes2p3b.view.login;
 
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,16 +14,14 @@ import androidx.fragment.app.Fragment;
 
 import com.example.tubes2p3b.databinding.FragmentLoginBinding;
 import com.example.tubes2p3b.model.User;
-import com.example.tubes2p3b.adapter.Spinner;
+import com.example.tubes2p3b.adapter.Dropdown;
 import com.example.tubes2p3b.presenter.LoginPresenter;
 import com.example.tubes2p3b.presenter.Interface.ILogin;
 import com.google.gson.Gson;
 
 public class LoginFragment extends Fragment implements ILogin.UI{
     FragmentLoginBinding binding;
-    Gson gson;
     LoginPresenter presenter;
-    AnimationDrawable animationDrawable;
 
     public static LoginFragment newInstance() {
         LoginFragment fragment = new LoginFragment();
@@ -37,22 +34,13 @@ public class LoginFragment extends Fragment implements ILogin.UI{
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentLoginBinding.inflate(inflater,container,false);
         this.presenter = new LoginPresenter(this);
-        gson = new Gson();
-        animationDrawable = (AnimationDrawable) binding.bgAnimation.getBackground();
-        animationDrawable.setEnterFadeDuration(4500);
-        animationDrawable.setExitFadeDuration(4500);
-        animationDrawable.start();
+        this.presenter.animationBg(binding.bgAnimation);
         binding.btnLogin.setOnClickListener(this::onClickLogin);
         return binding.getRoot();
     }
 
     private void onClickLogin(View view) {
-        String email = binding.etEmail.getText().toString();
-        String password = binding.etPassword.getText().toString();
-        String role = binding.spRole.getSelectedItem().toString();
-        presenter.user = new User(email,password,role);
-        String json = gson.toJson(presenter.user);
-        this.presenter.webConncetAuth(getActivity(),json);
+        this.presenter.cekdata(binding.etEmail,binding.etPassword,binding.spRole);
     }
 
     @Override
@@ -66,10 +54,10 @@ public class LoginFragment extends Fragment implements ILogin.UI{
                     first[0] = false;
                 }else{
                     if(i == 0){
-                        Toast.makeText(getContext(),"Silahkan pilih Role yang lain!",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(),"Silakan pilih Role yang lain!",Toast.LENGTH_SHORT).show();
                     }
                     else{
-                        Toast.makeText(getContext(),Spinner.ROLE[i]+ " Dipilih !", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), Dropdown.ROLE[i]+ " dipilih !", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -78,6 +66,7 @@ public class LoginFragment extends Fragment implements ILogin.UI{
             }
         });
     }
+
 }
 
 

@@ -9,10 +9,12 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import com.example.tubes2p3b.presenter.Interface.IRouterAPI;
+import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -150,7 +152,7 @@ public class RouterAPI {
 
     public void getUser(){
         String email = "studentunpar@mail.com";
-        String Base_URL = "https://ifportal.labftis.net/api/v1/users/email/"+email;
+        String Base_URL = "https://ifportal.labftis.net/api/v1/users/self";
         RequestQueue queue = Volley.newRequestQueue(ui.getContext());
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
                 Base_URL, new Response.Listener<String>() {
@@ -162,13 +164,14 @@ public class RouterAPI {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println(error);
+//                System.out.println(error);
+                getErrResponse(error);
             }
         }){
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String,String> map = new HashMap<>();
-                map.put("Authorization","Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJfaWQiOiJhMzhjODJiNS1jYjNlLTRhZWUtOGZjOS0xNTVhNjA3MTEyYTgiLCJyb2xlIjoibGVjdHVyZXIifSwiaWF0IjoxNjcyNzMxNTgyfQ.AILXUwWboT2UaUw5xkAiDM4LDsjGvvqQJKdATGj6GPM");
+                map.put("Authorization","Bearer "+tokenAdmin);
                 return map;
             }
         };
@@ -188,7 +191,7 @@ public class RouterAPI {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println(error);
+                getErrResponse(error);
             }
         }){
             @Override
@@ -218,7 +221,7 @@ public class RouterAPI {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println(error);
+                getErrResponse(error);
             }
         }){
             @Override
@@ -323,7 +326,11 @@ public class RouterAPI {
 
     private void getResponseAcademicYears(String response) throws  JSONException{
         JSONObject jsonObject = new JSONObject(response);
-        System.out.println(jsonObject);
+        Gson gson = new Gson();
+        AcademicYears academicYears = gson.fromJson(response,AcademicYears.class);
+        for (String a: academicYears.academic_years) {
+            System.out.println(a);
+        }
     }
 
     private void getResponseAnnounce(String response) throws JSONException {
@@ -340,7 +347,7 @@ public class RouterAPI {
             try {
                 body = new String(response.networkResponse.data,"UTF-8");
                 JSONObject object = new JSONObject(body);
-                System.out.println(object.get("errcode"));
+                System.out.println(object);
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             } catch (JSONException e) {

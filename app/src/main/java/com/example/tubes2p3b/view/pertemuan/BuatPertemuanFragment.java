@@ -1,4 +1,4 @@
-package com.example.tubes2p3b.view;
+package com.example.tubes2p3b.view.pertemuan;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
