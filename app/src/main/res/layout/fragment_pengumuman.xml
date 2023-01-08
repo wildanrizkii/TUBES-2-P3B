@@ -81,12 +81,12 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="40dp"
             android:orientation="vertical"
+            android:gravity="center"
             >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:layout_marginBottom="8dp"
                 android:fontFamily="@font/noto_sans_regular"
                 android:textColor="@color/black"
@@ -102,7 +102,8 @@
                 android:fontFamily="@font/noto_sans_medium"
                 android:text="Buat pengumuman"
                 android:textAllCaps="false"
-                android:textSize="14sp">
+                android:textSize="14sp"
+                >
 
             </Button>
 

@@ -20,11 +20,43 @@ import org.json.JSONObject;
 
 public class RouterAPI {
     IRouterAPI.UI ui;
+    String tokenLecture = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJfaWQiOiJhMzhjODJiNS1jYjNlLTRhZWUtOGZjOS0xNTVhNjA3MTEyYTgiLCJyb2xlIjoibGVjdHVyZXIifSwiaWF0IjoxNjczMDkzMTIxfQ.B-qtj-4J0TZg3dwMqfiOOt2SSJzRcLkY15WJK_Q7eo8";
+    String tokenStudent = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJfaWQiOiIwOWU2N2M3Zi1iODNhLTQzMjgtYTMxMS03ZWVjZTA5MGI1MTUiLCJyb2xlIjoic3R1ZGVudCJ9LCJpYXQiOjE2NzMwOTMzNDZ9.E4tZwVK03VKy-Ye0P57lmUQ8fEWbhtsAursW-CmSvpQ";
+    String tokenAdmin = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJfaWQiOiI2ZTY2ODZmMC0yOTZlLTRjNzItOGE0NS1hNmFjMWVkNDhlNDQiLCJyb2xlIjoiYWRtaW4ifSwiaWF0IjoxNjcyMzYwOTQ4fQ.KF5P7d9EBpH62c8y9cTccV9NIs3qZmInzLUp5SnjZqI";
 
     public RouterAPI(IRouterAPI.UI ui){
         this.ui = ui;
     }
 
+    public void postUser(){
+        String Base_URL = "https://ifportal.labftis.net/api/v1/users/";
+        RequestQueue queue = Volley.newRequestQueue(ui.getContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                Base_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    getResponseAnnounce(response);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+//                System.out.println(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                getErrResponse(error);
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> map = new HashMap<>();
+                map.put("Authorization","Bearer " + tokenAdmin);
+                return map;
+            }
+        };
+        queue.add(stringRequest);
+    }
 
     public void getAnnouncement(){
         String Base_URL = "https://ifportal.labftis.net/api/v1/announcements/";
@@ -49,7 +81,37 @@ public class RouterAPI {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String,String> map = new HashMap<>();
-                map.put("Authorization","Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJfaWQiOiI2ZTY2ODZmMC0yOTZlLTRjNzItOGE0NS1hNmFjMWVkNDhlNDQiLCJyb2xlIjoiYWRtaW4ifSwiaWF0IjoxNjcyMzYwOTQ4fQ.KF5P7d9EBpH62c8y9cTccV9NIs3qZmInzLUp5SnjZqI");
+                map.put("Authorization","Bearer " + tokenAdmin);
+                return map;
+            }
+        };
+        queue.add(stringRequest);
+    }
+
+    public void postAnnouncement(){
+        String Base_URL = "https://ifportal.labftis.net/api/v1/announcements/";
+        RequestQueue queue = Volley.newRequestQueue(ui.getContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                Base_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    getResponseAnnounce(response);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+//                System.out.println(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                getErrResponse(error);
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> map = new HashMap<>();
+                map.put("Authorization","Bearer " + tokenAdmin);
                 return map;
             }
         };
@@ -163,6 +225,96 @@ public class RouterAPI {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String,String> map = new HashMap<>();
                 map.put("Authorization","Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJfaWQiOiJhMzhjODJiNS1jYjNlLTRhZWUtOGZjOS0xNTVhNjA3MTEyYTgiLCJyb2xlIjoibGVjdHVyZXIifSwiaWF0IjoxNjcyNzMxNTgyfQ.AILXUwWboT2UaUw5xkAiDM4LDsjGvvqQJKdATGj6GPM");
+                return map;
+            }
+        };
+        queue.add(stringRequest);
+    }
+
+    public void postTags(){
+        String Base_URL = "https://ifportal.labftis.net/api/v1/tags/";
+        RequestQueue queue = Volley.newRequestQueue(ui.getContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                Base_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    getResponseAnnounce(response);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+//                System.out.println(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                getErrResponse(error);
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> map = new HashMap<>();
+                map.put("Authorization","Bearer " + tokenAdmin);
+                return map;
+            }
+        };
+        queue.add(stringRequest);
+    }
+
+    public void getTags(){
+        String Base_URL = "https://ifportal.labftis.net/api/v1/tags/";
+        RequestQueue queue = Volley.newRequestQueue(ui.getContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.GET,
+                Base_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    getResponseAnnounce(response);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+//                System.out.println(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                getErrResponse(error);
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> map = new HashMap<>();
+                map.put("Authorization","Bearer " + tokenAdmin);
+                return map;
+            }
+        };
+        queue.add(stringRequest);
+    }
+
+    public void postAppointment(){
+        String Base_URL = "https://ifportal.labftis.net/api/v1/appointments/";
+        RequestQueue queue = Volley.newRequestQueue(ui.getContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                Base_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    getResponseAnnounce(response);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+//                System.out.println(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                getErrResponse(error);
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> map = new HashMap<>();
+                map.put("Authorization","Bearer " + tokenStudent);
                 return map;
             }
         };
