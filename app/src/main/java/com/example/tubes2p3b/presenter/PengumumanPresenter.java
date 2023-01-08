@@ -5,6 +5,7 @@ import android.os.Parcelable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentResultListener;
@@ -18,9 +19,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.tubes2p3b.R;
 import com.example.tubes2p3b.adapter.PengumumanAdapter;
 import com.example.tubes2p3b.model.DetailPengumuman;
 import com.example.tubes2p3b.model.ListPengumuman;
+import com.example.tubes2p3b.model.LoadingProgress;
 import com.example.tubes2p3b.model.RouterAPI;
 import com.example.tubes2p3b.presenter.Interface.IPengumuman;
 import com.example.tubes2p3b.presenter.Interface.IRouterAPI;
@@ -36,6 +39,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.github.muddz.styleabletoast.StyleableToast;
+
 public class PengumumanPresenter{
     PengumumanAdapter adapter;
     private ArrayList<ListPengumuman> listPengumuman;
@@ -45,6 +50,8 @@ public class PengumumanPresenter{
     ListView container;
     Gson gson = new Gson();
     DetailPengumuman detailPengumuman;
+    LoadingProgress loadingProgress;
+
     public PengumumanPresenter(IPengumuman.UI ui) {
         this.ui = ui;
         listPengumuman = new ArrayList<>();
@@ -52,6 +59,8 @@ public class PengumumanPresenter{
 
     public void loadPengumuman(ListView view){
         container = view;
+        loadingProgress = new LoadingProgress(ui.getActivity());
+        loadingProgress.loadingDialog();
         getAnnouncement();
 
     }
@@ -94,7 +103,8 @@ public class PengumumanPresenter{
             }
         };
         queue.add(stringRequest);
-    }public void getAnnouncement(String str){
+    }
+    public void getAnnouncement(String str){
         String Base_URL = "https://ifportal.labftis.net/api/v1/announcements?limit=10&cursor="+str;
         RequestQueue queue = Volley.newRequestQueue(ui.getContext());
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
@@ -174,10 +184,14 @@ public class PengumumanPresenter{
         }
         if(this.next.length()>0&&!this.next.equals("null")){
             getAnnouncement(this.next);
+        } else {
+            adapter = new PengumumanAdapter(ui.getContext());
+            adapter.setListPengumumen(listPengumuman);
+            container.setAdapter(adapter);
+            loadingProgress.dialogDismiss();
+            Toast.makeText(ui.getContext(), "Data berhasil dimuat",Toast.LENGTH_LONG).show();
         }
-        adapter = new PengumumanAdapter(ui.getContext());
-        adapter.setListPengumumen(listPengumuman);
-        container.setAdapter(adapter);
+
     }
 
 
@@ -197,5 +211,8 @@ public class PengumumanPresenter{
                 e.printStackTrace();
             }
         }
+        loadingProgress.dialogDismiss();
+        Toast.makeText(ui.getContext(),"Tidak dapat memuat data",Toast.LENGTH_LONG).show();
+//        StyleableToast.makeText(ui.getContext(), "Tidak dapat memuat data", Toast.LENGTH_LONG, R.style.myToastError).show();
     }
 }

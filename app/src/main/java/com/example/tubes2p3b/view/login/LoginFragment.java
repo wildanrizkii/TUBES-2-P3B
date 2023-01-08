@@ -54,10 +54,10 @@ public class LoginFragment extends Fragment implements ILogin.UI{
                     first[0] = false;
                 }else{
                     if(i == 0){
-                        Toast.makeText(getContext(),"Silakan pilih Role yang lain!",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(),"Silakan pilih role yang lain!",Toast.LENGTH_SHORT).show();
                     }
                     else{
-                        Toast.makeText(getContext(), Dropdown.ROLE[i]+ " dipilih !", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), Dropdown.ROLE[i]+ " dipilih!", Toast.LENGTH_SHORT).show();
                     }
                 }
             }

@@ -15,7 +15,7 @@ public class LoadingProgress {
         this.activity = activity;
     }
 
-    void loadingDialog(){
+    public void loadingDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         LayoutInflater inflater = activity.getLayoutInflater();
         builder.setView(inflater.inflate(R.layout.loading_progress, null));
@@ -23,5 +23,9 @@ public class LoadingProgress {
 
         alertDialog = builder.create();
         alertDialog.show();
+    }
+
+    public void dialogDismiss(){
+        alertDialog.dismiss();
     }
 }

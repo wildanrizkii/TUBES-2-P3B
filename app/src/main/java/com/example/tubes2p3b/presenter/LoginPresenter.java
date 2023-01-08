@@ -8,6 +8,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.ArrayAdapter;
@@ -25,6 +26,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.tubes2p3b.model.LoadingProgress;
 import com.example.tubes2p3b.model.User;
 import com.example.tubes2p3b.adapter.Dropdown;
 import com.example.tubes2p3b.model.UserRes;
@@ -45,6 +47,7 @@ public class LoginPresenter implements ILogin.Websevice{
     private WebService webService;
     private ILogin.UI ui;
     private AnimationDrawable animationDrawable;
+    private LoadingProgress loadingProgress;
 
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
@@ -70,30 +73,21 @@ public class LoginPresenter implements ILogin.Websevice{
         String email = e.getText().toString().trim();
         String password = p.getText().toString().trim();
         String role = r.getSelectedItem().toString();
-        e.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        if(email.length() == 0 || password.length() == 0 || role.equals("Pilih role")){
+            Toast.makeText(ui.getContext(), "Harap isi email, password dan role dahulu!",Toast.LENGTH_SHORT).show();
+        } else {
+            this.user = new User(email,password,role);
+            String json = gson.toJson(this.user);
+            ConnectivityManager connectivityManager = (ConnectivityManager) ui.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo isOnlien = connectivityManager.getActiveNetworkInfo();
+            if(isOnlien == null){
+                Toast.makeText(ui.getContext(), "Anda sedang offline",Toast.LENGTH_LONG).show();
+            } else{
+                loadingProgress = new LoadingProgress(ui.getActivity());
+                loadingProgress.loadingDialog();
+                webConncetAuth(json);
             }
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if(email.matches(emailPattern) && email.length() > 0){
-//                    Toast.makeText(ui.getContext(),"format email tidak sesuai",Toast.LENGTH_SHORT).show()
-                } else{
-                    Toast.makeText(ui.getContext(), "format email tidak sesuai",Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-        this.user = new User(email,password,role);
-        String json = gson.toJson(this.user);
-        ConnectivityManager connectivityManager = (ConnectivityManager) ui.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo isOnlien = connectivityManager.getActiveNetworkInfo();
-        if(isOnlien == null){
-            Toast.makeText(ui.getContext(), "Anda sedang offline",Toast.LENGTH_LONG).show();
-        } else{
-            webConncetAuth(json);
         }
     }
 
@@ -131,6 +125,7 @@ public class LoginPresenter implements ILogin.Websevice{
         res.putString("token",this.token.getToken());
         res.putString("pages","home");
         ui.getParentFragmentManager().setFragmentResult("changePage",res);
+        loadingProgress.dialogDismiss();
     }
 
     public void getErrResponse(VolleyError response)  {
@@ -144,7 +139,7 @@ public class LoginPresenter implements ILogin.Websevice{
                 if (object.get("errcode").toString().equals("E_AUTH_FAILED")){
                     Toast.makeText(ui.getContext(),"Data tidak sesuai",Toast.LENGTH_LONG).show();
                 } else if(object.get("errcode").toString().equals("E_UNKNOWN_FATAL")){
-                    Toast.makeText(ui.getContext(),"Server sedang mengalami masalah!!!",Toast.LENGTH_LONG).show();
+                    Toast.makeText(ui.getContext(),"Server sedang mengalami masalah!",Toast.LENGTH_LONG).show();
                 }
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
@@ -152,6 +147,7 @@ public class LoginPresenter implements ILogin.Websevice{
                 e.printStackTrace();
             }
         }
+        loadingProgress.dialogDismiss();
     }
 
 

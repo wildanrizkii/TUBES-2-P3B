@@ -18,4 +18,7 @@
     <color name="animation_bg_3">#C9FFFF</color>
     <color name="animation_bg_4">#FEE1FF</color>
 
+    <color name="error_bg">#FF5454</color>
+    <color name="success_bg">#54FF60</color>
+
 </resources>

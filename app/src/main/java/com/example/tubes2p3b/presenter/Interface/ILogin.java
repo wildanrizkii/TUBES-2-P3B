@@ -10,6 +10,7 @@ public interface ILogin {
     interface UI{
         void spinnerRole(ArrayAdapter<String> adapter);
         Context getContext();
+        Activity getActivity();
         FragmentResultOwner getParentFragmentManager();
     }
     interface Websevice{

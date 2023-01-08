@@ -13,4 +13,30 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="myToastError">
+        <item name="stTextColor">@color/black</item>
+        <item name="stFont">@font/noto_sans_regular</item>
+        <item name="stTextSize">14sp</item>
+        <item name="stColorBackground">@color/white</item>
+        <item name="stSolidBackground">true</item>
+        <item name="stStrokeWidth">2dp</item>
+        <item name="stStrokeColor">@color/colorBG</item>
+        <item name="stIconStart">@mipmap/ic_new_icon_app</item>
+        <item name="stLength">LONG</item>
+        <item name="stRadius">40dp</item>
+    </style>
+
+    <style name="myToastSuccess">
+        <item name="stTextColor">@color/black</item>
+        <item name="stFont">@font/noto_sans_regular</item>
+        <item name="stTextSize">14sp</item>
+        <item name="stColorBackground">@color/success_bg</item>
+        <item name="stSolidBackground">true</item>
+        <item name="stStrokeWidth">12dp</item>
+        <item name="stStrokeColor">#fff</item>
+        <item name="stIconStart">@mipmap/ic_new_icon_app</item>
+        <item name="stLength">LONG</item>
+        <item name="stRadius">12dp</item>
+    </style>
 </resources>

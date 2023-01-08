@@ -9,6 +9,8 @@
         android:orientation="vertical"
         android:layout_centerInParent="true"
         android:gravity="center"
+        android:paddingHorizontal="40dp"
+        android:paddingVertical="28dp"
         >
 
         <ProgressBar
@@ -16,14 +18,14 @@
             android:layout_height="wrap_content"
             style="?android:attr/progressBarStyle"
             android:layout_marginBottom="12dp"
-
             >
+
         </ProgressBar>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Login in"
+            android:text="Loading..."
             android:fontFamily="@font/noto_sans_medium"
             android:textColor="@color/black"
             android:textSize="18sp"

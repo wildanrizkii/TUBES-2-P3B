@@ -57,7 +57,7 @@ public class MainPresenter {
         }
         ft.add(container.getId(),this.loginFragment,"login")
                 .commit();
-//        ft.add(container.getId(),this.homeFragment,"login")
+//        ft.add(container.getId(),this.homeFragment,"login").commit();
 //        ft.add(container.getId(),this.pengumumanFragment,"")
 //                .commit();
     }
