@@ -5,6 +5,7 @@ import static com.example.tubes2p3b.model.WebService.JSON;
 
 import android.app.Activity;
 import android.content.Context;
+import android.icu.util.Output;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
@@ -87,9 +88,11 @@ public class LoginPresenter implements ILogin.Websevice{
 
 
     public void getResponse(String response){
-        this.token = gson.fromJson(response, UserRes.class);
+        UserRes userRes = gson.fromJson(response,UserRes.class);
+//        this.token = gson.fromJson(response, UserRes.class);
         Bundle res = new Bundle();
-        res.putString("token",this.token.getToken());
+        res.putString("token",userRes.getToken());
+        System.out.println(userRes.getToken());
         res.putString("pages","home");
         ui.getParentFragmentManager().setFragmentResult("changePage",res);
     }

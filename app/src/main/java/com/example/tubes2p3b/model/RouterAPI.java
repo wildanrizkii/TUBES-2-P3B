@@ -1,5 +1,7 @@
 package com.example.tubes2p3b.model;
 
+import android.content.SharedPreferences;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -20,9 +22,11 @@ import org.json.JSONObject;
 
 public class RouterAPI {
     IRouterAPI.UI ui;
+    SharedPreferences sp;
 
     public RouterAPI(IRouterAPI.UI ui){
         this.ui = ui;
+
     }
 
 

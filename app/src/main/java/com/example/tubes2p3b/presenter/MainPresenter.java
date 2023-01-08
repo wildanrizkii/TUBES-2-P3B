@@ -1,5 +1,8 @@
 package com.example.tubes2p3b.presenter;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.FrameLayout;
 
@@ -29,8 +32,9 @@ public class MainPresenter {
     PengumumanFragment pengumumanFragment;
     DetailPengumumanFragment detailPengumumanFragment;
     IMain.UI ui;
+    SharedPreferences sp;
 
-    public MainPresenter(IMain.UI ui){
+    public MainPresenter(IMain.UI ui, Activity activity){
         this.ui = ui;
         userToken = new UserToken();
         this.loginFragment = LoginFragment.newInstance();
@@ -40,16 +44,17 @@ public class MainPresenter {
         this.pengumumanFragment = PengumumanFragment.newInstance();
         this.detailPengumumanFragment = DetailPengumumanFragment.newInstance();
         fragmentManager = ui.getSupportFragmentManager();
+        this.sp = activity.getSharedPreferences("TUBES-2-P3B", Context.MODE_PRIVATE);
     }
 
     public void inittransaction(FrameLayout container){
         this.container = container;
         FragmentTransaction ft = fragmentManager.beginTransaction();
-//        ft.add(container.getId(),this.loginFragment,"login")
-//                .commit();
-//        ft.add(container.getId(),this.homeFragment,"login")
-        ft.add(container.getId(),this.pengumumanFragment,"")
+        ft.add(container.getId(),this.loginFragment,"login")
                 .commit();
+//        ft.add(container.getId(),this.homeFragment,"login")
+//        ft.add(container.getId(),this.pengumumanFragment,"")
+//                .commit();
     }
 
 
@@ -57,8 +62,10 @@ public class MainPresenter {
         this.fragmentManager.setFragmentResultListener("changePage", (LifecycleOwner) ui, new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-                userToken.setToken(result.getString("token"));
+                String getStringToken = result.getString("token");
+                userToken.setToken(getStringToken);
                 changePage(result.getString("pages"));
+                sp.edit().putString("token", getStringToken).apply();
             }
         });
 

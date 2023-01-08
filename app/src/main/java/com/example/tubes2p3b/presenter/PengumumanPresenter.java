@@ -1,9 +1,14 @@
 package com.example.tubes2p3b.presenter;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -19,6 +24,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.tubes2p3b.adapter.PengumumanAdapter;
+import com.example.tubes2p3b.adapter.Spinner;
 import com.example.tubes2p3b.model.DetailPengumuman;
 import com.example.tubes2p3b.model.ListPengumuman;
 import com.example.tubes2p3b.model.RouterAPI;
@@ -45,9 +51,19 @@ public class PengumumanPresenter{
     ListView container;
     Gson gson = new Gson();
     DetailPengumuman detailPengumuman;
-    public PengumumanPresenter(IPengumuman.UI ui) {
+    SharedPreferences sp;
+    String token;
+    public Spinner spinner;
+
+    public PengumumanPresenter(IPengumuman.UI ui, Activity activity) {
         this.ui = ui;
         listPengumuman = new ArrayList<>();
+        this.sp = activity.getSharedPreferences("TUBES-2-P3B", Context.MODE_PRIVATE);
+//        this.api = new RouterAPI();
+        this.token = this.sp.getString("token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJfaWQiOiIwMTQyZTZiOS00ZGUxLTQzMzAtYTM0MC0xMzRlYmVkNGY0YmEiLCJyb2xlIjoic3R1ZGVudCJ9LCJpYXQiOjE2NzMxMDgyNDN9.8cbGwBOtrgvNHdgpn_EH08_bWJO2eM2vpE4NMn3dm0Q");
+        System.out.println(this.token);
+        spinner = new Spinner();
+        showSpinner();
     }
 
     public void loadPengumuman(ListView view){
@@ -65,6 +81,12 @@ public class PengumumanPresenter{
 
     private void onClickItem(AdapterView<?> adapterView, View view, int i, long l) {
         getDetailAnnouncement(listPengumuman.get(i).getId());
+    }
+
+    void showSpinner()
+    {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(ui.getContext(), android.R.layout.simple_spinner_dropdown_item, Spinner.TAG);
+//        this.ui.spinnerFilter(Adapter);
     }
 
     public void getAnnouncement(){
@@ -89,7 +111,7 @@ public class PengumumanPresenter{
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String,String> map = new HashMap<>();
-                map.put("Authorization","Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJfaWQiOiI2ZTY2ODZmMC0yOTZlLTRjNzItOGE0NS1hNmFjMWVkNDhlNDQiLCJyb2xlIjoiYWRtaW4ifSwiaWF0IjoxNjcyMzYwOTQ4fQ.KF5P7d9EBpH62c8y9cTccV9NIs3qZmInzLUp5SnjZqI");
+                map.put("Authorization","Bearer " + token);
                 return map;
             }
         };

@@ -58,7 +58,8 @@
                     <Spinner
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
-                        android:background="@drawable/bg_spinner">
+                        android:background="@drawable/bg_spinner"
+                        android:id="@+id/spFilter">
 
                     </Spinner>
                 </LinearLayout>

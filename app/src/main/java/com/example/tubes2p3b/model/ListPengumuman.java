@@ -117,7 +117,7 @@ class Tags implements Parcelable{
     String tag;
     String tag_id;
 
-    protected Tags(Parcel in) {
+    public Tags(Parcel in) {
         tag = in.readString();
         tag_id = in.readString();
     }
