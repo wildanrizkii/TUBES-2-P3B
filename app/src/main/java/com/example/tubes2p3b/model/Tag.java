@@ -1,41 +1,32 @@
 package com.example.tubes2p3b.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-public class Tag implements Parcelable {
+public class Tag {
     String tag;
     String tag_id;
 
-    public Tag(Parcel in) {
-        tag = in.readString();
-        tag_id = in.readString();
+    public Tag(String tag, String tag_id)
+    {
+        this.tag = tag;
+        this.tag_id = tag_id;
     }
 
-    public static final Creator<Tags> CREATOR = new Creator<Tags>() {
-        @Override
-        public Tags createFromParcel(Parcel in) {
-            return new Tags(in);
-        }
-
-        @Override
-        public Tags[] newArray(int size) {
-            return new Tags[size];
-        }
-    };
-
-    public String getTag() {
+    public String getTag()
+    {
         return tag;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    public void setTag(String tag)
+    {
+        this.tag = tag;
     }
 
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(tag);
-        parcel.writeString(tag_id);
+    public String getTag_id()
+    {
+        return tag_id;
+    }
+
+    public void setTag_id(String tag_id)
+    {
+        this.tag_id = tag_id;
     }
 }

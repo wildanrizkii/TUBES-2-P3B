@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.preference.Preference;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.AdapterView;
@@ -30,6 +31,7 @@ import com.example.tubes2p3b.model.ListPengumuman;
 import com.example.tubes2p3b.model.RouterAPI;
 import com.example.tubes2p3b.presenter.Interface.IPengumuman;
 import com.example.tubes2p3b.presenter.Interface.IRouterAPI;
+import com.example.tubes2p3b.view.pengumuman.PengumumanFragment;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -63,7 +65,6 @@ public class PengumumanPresenter{
         this.token = this.sp.getString("token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJfaWQiOiIwMTQyZTZiOS00ZGUxLTQzMzAtYTM0MC0xMzRlYmVkNGY0YmEiLCJyb2xlIjoic3R1ZGVudCJ9LCJpYXQiOjE2NzMxMDgyNDN9.8cbGwBOtrgvNHdgpn_EH08_bWJO2eM2vpE4NMn3dm0Q");
         System.out.println(this.token);
         spinner = new Spinner();
-        showSpinner();
     }
 
     public void loadPengumuman(ListView view){
@@ -83,20 +84,23 @@ public class PengumumanPresenter{
         getDetailAnnouncement(listPengumuman.get(i).getId());
     }
 
-    void showSpinner()
-    {
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(ui.getContext(), android.R.layout.simple_spinner_dropdown_item, Spinner.TAG);
-//        this.ui.spinnerFilter(Adapter);
-    }
+
 
     public void getAnnouncement(){
         String Base_URL = "https://ifportal.labftis.net/api/v1/announcements?limit=10";
+        System.out.println("Diterima di presenter " + sp.getString("id", ""));
+        if (!sp.getString("id", "").equals(""))
+        {
+            Base_URL = "https://ifportal.labftis.net/api/v1/announcements?filter[tags][]=" + sp.getString("id", "") + "&limit=10";
+
+        }
         RequestQueue queue = Volley.newRequestQueue(ui.getContext());
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
                 Base_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
+                    sp.edit().remove("id").apply();
                     getResponseAnnounce(response);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -189,10 +193,11 @@ public class PengumumanPresenter{
         JSONObject jsonObject = new JSONObject(response);
         JSONArray jsonArray = jsonObject.getJSONArray("data");
         this.next = jsonObject.getJSONObject("metadata").getString("next");
-        simpan = gson.fromJson(jsonArray.toString(),new TypeToken <ArrayList<ListPengumuman>>(){}.getType());
-        for (ListPengumuman list: simpan) {
-            listPengumuman.add(list);
-        }
+        listPengumuman = gson.fromJson(jsonArray.toString(),new TypeToken <ArrayList<ListPengumuman>>(){}.getType());
+//        for (ListPengumuman list: simpan) {
+//            listPengumuman.add(list);
+//        }
+
         if(this.next.length()>0&&!this.next.equals("null")){
             getAnnouncement(this.next);
         }

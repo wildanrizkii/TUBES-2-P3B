@@ -77,17 +77,17 @@ public class MainPresenter {
             ft.remove(this.loginFragment);
             ft.add((container.getId()),this.homeFragment);
         } else if (page.equals("frs")) {
-            ft.remove(this.homeFragment);
-            ft.add((container.getId()), this.frsFragment);
+            ft.hide(this.homeFragment);
+            ft.add((container.getId()), this.frsFragment).addToBackStack(null);
         } else if (page.equals("pertemuan")) {
-            ft.remove(this.homeFragment);
-            ft.add((container.getId()),this.pertemuanFragment);
+            ft.hide(this.homeFragment);
+            ft.add((container.getId()),this.pertemuanFragment).addToBackStack(null);
         } else if (page.equals("pengumuman")) {
-            ft.remove(this.homeFragment);
-            ft.add((container.getId()),this.pengumumanFragment);
+            ft.hide(this.homeFragment);
+            ft.add((container.getId()),this.pengumumanFragment).addToBackStack(null);
         } else if(page.equals("dPengumuman")){
-            ft.remove(this.pengumumanFragment);
-            ft.add((container.getId()),this.detailPengumumanFragment);
+            ft.hide(this.pengumumanFragment);
+            ft.add((container.getId()),this.detailPengumumanFragment).addToBackStack(null);
         }
         ft.commit();
     }
