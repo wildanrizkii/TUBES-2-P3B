@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="36dp"
+            android:layout_marginTop="40dp"
+            android:layout_centerHorizontal="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/noto_sans_bold"
+                android:text="@string/buat_pengumuman"
+                android:textColor="@color/black"
+                android:textSize="28dp"
+                android:layout_marginBottom="64dp">
+
+            </TextView>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginBottom="4dp"
+                    android:fontFamily="@font/noto_sans_medium"
+                    android:text="@string/judul"
+                    android:textColor="@color/black"
+                    android:textSize="16sp">
+
+                </TextView>
+
+                <EditText
+                    android:layout_width="340dp"
+                    android:layout_height="48dp"
+                    android:autofillHints="emailAddress"
+                    android:background="@drawable/bg_edit"
+                    android:hint="Bimbingan Skripsi"
+                    android:inputType="textWebEmailAddress">
+
+                </EditText>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginBottom="4dp"
+                    android:fontFamily="@font/noto_sans_medium"
+                    android:text="@string/tags"
+                    android:textColor="@color/black"
+                    android:textSize="16sp">
+
+                </TextView>
+
+                <EditText
+                    android:layout_width="340dp"
+                    android:layout_height="48dp"
+                    android:autofillHints="emailAddress"
+                    android:background="@drawable/bg_edit"
+                    android:hint="Skripsi 1"
+                    android:inputType="textWebEmailAddress">
+
+                </EditText>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginBottom="4dp"
+                    android:fontFamily="@font/noto_sans_medium"
+                    android:text="@string/deskripsi"
+                    android:textColor="@color/black"
+                    android:textSize="16sp">
+
+                </TextView>
+
+                <EditText
+                    android:layout_width="340dp"
+                    android:layout_height="200dp"
+                    android:autofillHints="emailAddress"
+                    android:background="@drawable/bg_edit"
+                    android:hint="Ini deskripsi"
+                    android:maxLines="4"
+                    android:lines="4"
+                    android:inputType="textWebEmailAddress">
+
+                </EditText>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="40dp"
+            >
+
+            <Button
+                android:id="@+id/btn_simpan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:width="140sp"
+                android:background="@drawable/button_rounded"
+                android:fontFamily="@font/noto_sans_medium"
+                android:text="Simpan"
+                android:textAllCaps="false"
+                android:textSize="14sp">
+
+            </Button>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</FrameLayout>

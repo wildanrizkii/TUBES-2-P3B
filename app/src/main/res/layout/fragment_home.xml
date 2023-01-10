@@ -123,7 +123,7 @@
                 android:layout_height="280dp">
 
                 <ImageView
-                    android:id="@+id/big_box"
+                    android:id="@+id/big_box_FRS"
                     android:layout_width="170dp"
                     android:layout_height="280dp"
                     android:layout_marginRight="10dp"
@@ -166,7 +166,7 @@
                     >
 
                     <ImageView
-
+                        android:id="@+id/small_box_Pertemuan"
                         android:layout_width="170dp"
                         android:layout_height="136dp"
                         android:layout_marginBottom="9dp"
@@ -212,7 +212,7 @@
                     >
 
                     <ImageView
-                        android:id="@+id/box2"
+                        android:id="@+id/small_box_pengumuman"
                         android:layout_width="170dp"
                         android:layout_height="136dp"
                         android:src="@drawable/small_box">
