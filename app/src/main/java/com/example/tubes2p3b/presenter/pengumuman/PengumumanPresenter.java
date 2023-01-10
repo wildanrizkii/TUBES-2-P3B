@@ -1,4 +1,4 @@
-package com.example.tubes2p3b.presenter;
+package com.example.tubes2p3b.presenter.pengumuman;
 
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -7,10 +7,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentResultListener;
 import androidx.fragment.app.FragmentResultOwner;
-import androidx.lifecycle.LifecycleOwner;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -19,14 +16,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.tubes2p3b.R;
 import com.example.tubes2p3b.adapter.PengumumanAdapter;
 import com.example.tubes2p3b.model.DetailPengumuman;
 import com.example.tubes2p3b.model.ListPengumuman;
 import com.example.tubes2p3b.model.LoadingProgress;
-import com.example.tubes2p3b.model.RouterAPI;
+import com.example.tubes2p3b.model.TokenPreferences;
 import com.example.tubes2p3b.presenter.Interface.IPengumuman;
-import com.example.tubes2p3b.presenter.Interface.IRouterAPI;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -39,22 +34,30 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import io.github.muddz.styleabletoast.StyleableToast;
-
 public class PengumumanPresenter{
     PengumumanAdapter adapter;
     private ArrayList<ListPengumuman> listPengumuman;
     IPengumuman.UI ui;
-    RouterAPI api;
     String next;
+    String token;
     ListView container;
     Gson gson = new Gson();
     DetailPengumuman detailPengumuman;
     LoadingProgress loadingProgress;
+    TokenPreferences tokenPreferences;
 
     public PengumumanPresenter(IPengumuman.UI ui) {
         this.ui = ui;
         listPengumuman = new ArrayList<>();
+        tokenPreferences = new TokenPreferences(ui.getActivity());
+        String s =tokenPreferences.getRole();
+        System.out.println(s);
+        if(s.equals("student")){
+            ui.invisibleButton();
+        } else{
+            ui.visibleTombol();
+        }
+
     }
 
     public void loadPengumuman(ListView view){
@@ -63,6 +66,7 @@ public class PengumumanPresenter{
         loadingProgress.loadingDialog();
         getAnnouncement();
 
+
     }
     public FragmentResultOwner getParentFragmentManager() {
         return ui.getParentFragmentManager();
@@ -70,6 +74,12 @@ public class PengumumanPresenter{
 
     public void itemClick(){
         container.setOnItemClickListener(this::onClickItem);
+    }
+
+    public void tambahPengumuman() {
+        Bundle page = new Bundle();
+        page.putString("pages","buatPengumuman");
+        getParentFragmentManager().setFragmentResult("changePage",page);
     }
 
     private void onClickItem(AdapterView<?> adapterView, View view, int i, long l) {
@@ -98,12 +108,13 @@ public class PengumumanPresenter{
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String,String> map = new HashMap<>();
-                map.put("Authorization","Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJfaWQiOiI2ZTY2ODZmMC0yOTZlLTRjNzItOGE0NS1hNmFjMWVkNDhlNDQiLCJyb2xlIjoiYWRtaW4ifSwiaWF0IjoxNjcyMzYwOTQ4fQ.KF5P7d9EBpH62c8y9cTccV9NIs3qZmInzLUp5SnjZqI");
+                map.put("Authorization","Bearer "+tokenPreferences.getToken());
                 return map;
             }
         };
         queue.add(stringRequest);
     }
+
     public void getAnnouncement(String str){
         String Base_URL = "https://ifportal.labftis.net/api/v1/announcements?limit=10&cursor="+str;
         RequestQueue queue = Volley.newRequestQueue(ui.getContext());
@@ -126,7 +137,8 @@ public class PengumumanPresenter{
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String,String> map = new HashMap<>();
-                map.put("Authorization","Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJfaWQiOiI2ZTY2ODZmMC0yOTZlLTRjNzItOGE0NS1hNmFjMWVkNDhlNDQiLCJyb2xlIjoiYWRtaW4ifSwiaWF0IjoxNjcyMzYwOTQ4fQ.KF5P7d9EBpH62c8y9cTccV9NIs3qZmInzLUp5SnjZqI");
+                System.out.println(tokenPreferences.getToken());
+                map.put("Authorization","Bearer "+tokenPreferences.getToken());
                 return map;
             }
         };
@@ -155,7 +167,7 @@ public class PengumumanPresenter{
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String,String> map = new HashMap<>();
-                map.put("Authorization","Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJfaWQiOiIwOWU2N2M3Zi1iODNhLTQzMjgtYTMxMS03ZWVjZTA5MGI1MTUiLCJyb2xlIjoic3R1ZGVudCJ9LCJpYXQiOjE2NzMwNTI4NjV9.DVVZGOwoNjje5zVlhIrzeRkmpfMcru62IHgggyw_4PU");
+                map.put("Authorization","Bearer "+tokenPreferences.getToken());
                 return map;
             }
         };
@@ -168,7 +180,7 @@ public class PengumumanPresenter{
         Bundle page = new Bundle();
         res.putParcelable("detail", (Parcelable) detailPengumuman);
         page.putString("pages","dPengumuman");
-        ui.getParentFragmentManager().setFragmentResult("changePage",page);
+        getParentFragmentManager().setFragmentResult("changePage",page);
         getParentFragmentManager().setFragmentResult("detailPengumuman",res);
     }
     private void getResponseAnnounce(String response) throws JSONException {
@@ -177,8 +189,7 @@ public class PengumumanPresenter{
         JSONObject jsonObject = new JSONObject(response);
         JSONArray jsonArray = jsonObject.getJSONArray("data");
         this.next = jsonObject.getJSONObject("metadata").getString("next");
-        simpan = gson.fromJson(jsonArray.toString(),new TypeToken <ArrayList<ListPengumuman>>(){}.getType());
-        System.out.println(jsonArray);
+        simpan = gson.fromJson(jsonArray.toString(),new TypeToken<ArrayList<ListPengumuman>>(){}.getType());
         for (ListPengumuman list: simpan) {
             listPengumuman.add(list);
         }
@@ -213,6 +224,8 @@ public class PengumumanPresenter{
         }
         loadingProgress.dialogDismiss();
         Toast.makeText(ui.getContext(),"Tidak dapat memuat data",Toast.LENGTH_LONG).show();
-//        StyleableToast.makeText(ui.getContext(), "Tidak dapat memuat data", Toast.LENGTH_LONG, R.style.myToastError).show();
+        //        StyleableToast.makeText(ui.getContext(), "Tidak dapat memuat data", Toast.LENGTH_LONG, R.style.myToastError).show();
     }
+
+
 }

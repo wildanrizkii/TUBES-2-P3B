@@ -8,12 +8,13 @@ import android.graphics.drawable.AnimationDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.os.Handler;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.os.Parcelable;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -26,37 +27,45 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.tubes2p3b.adapter.PengumumanAdapter;
+import com.example.tubes2p3b.model.DetailPengumuman;
+import com.example.tubes2p3b.model.ListPengumuman;
 import com.example.tubes2p3b.model.LoadingProgress;
+import com.example.tubes2p3b.model.TokenPreferences;
 import com.example.tubes2p3b.model.User;
 import com.example.tubes2p3b.adapter.Dropdown;
 import com.example.tubes2p3b.model.UserRes;
 import com.example.tubes2p3b.model.WebService;
 import com.example.tubes2p3b.presenter.Interface.ILogin;
+import com.example.tubes2p3b.presenter.Interface.IPengumuman;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginPresenter implements ILogin.Websevice{
     private Gson gson;
     private Dropdown dropdown;
     private User user;
-    private UserRes token;
     private WebService webService;
     private ILogin.UI ui;
     private AnimationDrawable animationDrawable;
     private LoadingProgress loadingProgress;
-
-    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+    private TokenPreferences tokenPreferences;
 
     public LoginPresenter(ILogin.UI ui){
         webService = new WebService();
         gson = new Gson();
         dropdown =new Dropdown();
-        token = new UserRes();
         this.ui = ui;
+        tokenPreferences = new TokenPreferences(ui.getActivity());
         showspinner();
     }
 
@@ -73,7 +82,7 @@ public class LoginPresenter implements ILogin.Websevice{
         String email = e.getText().toString().trim();
         String password = p.getText().toString().trim();
         String role = r.getSelectedItem().toString();
-
+        tokenPreferences.saveRole(role);
         if(email.length() == 0 || password.length() == 0 || role.equals("Pilih role")){
             Toast.makeText(ui.getContext(), "Harap isi email, password dan role dahulu!",Toast.LENGTH_SHORT).show();
         } else {
@@ -93,7 +102,6 @@ public class LoginPresenter implements ILogin.Websevice{
 
     @Override
     public void webConncetAuth(String json) {
-        Bundle token = new Bundle();
         RequestQueue queue = Volley.newRequestQueue(ui.getContext());
         StringRequest stringRequest = new StringRequest(Request.Method.POST, AUTHENTICATE, new Response.Listener<String>() {
             @Override
@@ -120,9 +128,9 @@ public class LoginPresenter implements ILogin.Websevice{
 
 
     public void getResponse(String response){
-        this.token = gson.fromJson(response, UserRes.class);
+        UserRes token = gson.fromJson(response, UserRes.class);
         Bundle res = new Bundle();
-        res.putString("token",this.token.getToken());
+        this.tokenPreferences.saveToken(token.getToken());
         res.putString("pages","home");
         ui.getParentFragmentManager().setFragmentResult("changePage",res);
         loadingProgress.dialogDismiss();
@@ -161,4 +169,6 @@ public class LoginPresenter implements ILogin.Websevice{
     public Context getContext() {
         return getContext();
     }
+
+
 }

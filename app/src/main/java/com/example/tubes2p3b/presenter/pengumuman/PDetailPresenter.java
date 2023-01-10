@@ -1,4 +1,4 @@
-package com.example.tubes2p3b.presenter;
+package com.example.tubes2p3b.presenter.pengumuman;
 
 import android.os.Bundle;
 

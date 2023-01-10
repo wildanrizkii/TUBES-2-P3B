@@ -5,14 +5,12 @@ import android.content.Context;
 
 import androidx.fragment.app.FragmentResultOwner;
 
-public interface IPengumuman {
-    interface UI {
+public interface IBuatPengumuman {
+    interface UI{
         Context getContext();
         Activity getActivity();
         FragmentResultOwner getParentFragmentManager();
-        void visibleTombol();
-        void invisibleButton();
-
+        void clear();
 
     }
 }

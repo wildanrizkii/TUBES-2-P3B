@@ -9,13 +9,13 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import com.example.tubes2p3b.presenter.Interface.IRouterAPI;
 import com.google.gson.Gson;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -49,7 +49,8 @@ public class RouterAPI {
             public void onErrorResponse(VolleyError error) {
 //                getErrResponse(error);
             }
-        }){
+        })
+        {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String,String> map = new HashMap<>();
@@ -73,6 +74,36 @@ public class RouterAPI {
                     e.printStackTrace();
                 }
 //                System.out.println(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                getErrResponse(error);
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> map = new HashMap<>();
+                map.put("Authorization","Bearer " + tokenAdmin);
+                return map;
+            }
+        };
+        queue.add(stringRequest);
+    }
+
+    public void getRole(){
+        String Base_URL = "https://ifportal.labftis.net/api/v1/users/self";
+        RequestQueue queue = Volley.newRequestQueue(ui.getContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.GET,
+                Base_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    getResponseAnnounce(response);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                System.out.println(response);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -158,8 +189,12 @@ public class RouterAPI {
                 Base_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-//                getResponse(response);
-                System.out.println(response);
+                try {
+                    getResponseUser(response);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+//                System.out.println(response);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -272,7 +307,7 @@ public class RouterAPI {
             @Override
             public void onResponse(String response) {
                 try {
-                    getResponseAnnounce(response);
+                    getResponseTags(response);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -293,7 +328,35 @@ public class RouterAPI {
         };
         queue.add(stringRequest);
     }
-
+    public void deleteTags(){
+        String Base_URL = "https://ifportal.labftis.net/api/v1/tags/78d5683a-a978-49eb-8d9d-58ad23bb7379";
+        RequestQueue queue = Volley.newRequestQueue(ui.getContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.DELETE,
+                Base_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    getResponseDeleteTags(response);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+//                System.out.println(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                getErrResponse(error);
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> map = new HashMap<>();
+                map.put("Authorization","Bearer " + tokenAdmin);
+                return map;
+            }
+        };
+        queue.add(stringRequest);
+    }
     public void postAppointment(){
         String Base_URL = "https://ifportal.labftis.net/api/v1/appointments/";
         RequestQueue queue = Volley.newRequestQueue(ui.getContext());
@@ -336,6 +399,24 @@ public class RouterAPI {
     private void getResponseAnnounce(String response) throws JSONException {
         JSONObject jsonObject = new JSONObject(response);
         System.out.println(jsonObject);
+    }
+    private void getResponseDeleteTags(String response) throws JSONException {
+        JSONObject jsonObject = new JSONObject(response);
+        System.out.println(jsonObject);
+    }
+
+    private void getResponseTags(String response) throws JSONException {
+        JSONArray jsonArray = new JSONArray(response);
+        for (int i = 0; i < jsonArray.length(); i++) {
+            System.out.println(jsonArray.get(i));
+        }
+    }
+
+
+    private void getResponseUser(String response) throws JSONException {
+        JSONObject jsonObject = new JSONObject(response);
+        JSONArray jsonArray = jsonObject.getJSONArray("roles");
+        System.out.println(jsonArray);
     }
 
     public void getErrResponse(VolleyError response)  {

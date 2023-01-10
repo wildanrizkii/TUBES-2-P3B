@@ -10,11 +10,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.tubes2p3b.databinding.FragmentDetailPengumumanBinding;
-import com.example.tubes2p3b.model.UserToken;
 import com.example.tubes2p3b.presenter.Interface.IPDetail;
-import com.example.tubes2p3b.presenter.Interface.IPengumuman;
-import com.example.tubes2p3b.presenter.PDetailPresenter;
-import com.example.tubes2p3b.presenter.PengumumanPresenter;
+import com.example.tubes2p3b.presenter.pengumuman.PDetailPresenter;
 
 public class DetailPengumumanFragment extends Fragment implements IPDetail.UI {
     FragmentDetailPengumumanBinding binding;

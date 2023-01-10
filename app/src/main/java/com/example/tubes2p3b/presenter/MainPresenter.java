@@ -18,6 +18,7 @@ import com.example.tubes2p3b.presenter.Interface.IMain;
 import com.example.tubes2p3b.view.frs.FrsFragment;
 import com.example.tubes2p3b.view.home.HomeFragment;
 import com.example.tubes2p3b.view.login.LoginFragment;
+import com.example.tubes2p3b.view.pengumuman.BuatPengumumanFragment;
 import com.example.tubes2p3b.view.pengumuman.DetailPengumumanFragment;
 import com.example.tubes2p3b.view.pengumuman.PengumumanFragment;
 import com.example.tubes2p3b.view.pertemuan.PertemuanFragment;
@@ -32,18 +33,21 @@ public class MainPresenter {
     PertemuanFragment pertemuanFragment;
     PengumumanFragment pengumumanFragment;
     DetailPengumumanFragment detailPengumumanFragment;
+    BuatPengumumanFragment buatPengumumanFragment;
     IMain.UI ui;
     ConnectivityManager connectivityManager ;
 
     public MainPresenter(IMain.UI ui){
         this.ui = ui;
-        userToken = new UserToken();
+//        userToken = new UserToken();
         this.loginFragment = LoginFragment.newInstance();
         this.homeFragment = HomeFragment.newInstance();
         this.frsFragment = FrsFragment.newInstance();
         this.pertemuanFragment = PertemuanFragment.newInstance();
         this.pengumumanFragment = PengumumanFragment.newInstance();
         this.detailPengumumanFragment = DetailPengumumanFragment.newInstance();
+        this.buatPengumumanFragment = BuatPengumumanFragment.newInstance();
+
         fragmentManager = ui.getSupportFragmentManager();
     }
 
@@ -56,10 +60,11 @@ public class MainPresenter {
             Toast.makeText(ui.getContext(), "Anda sedang offline",Toast.LENGTH_LONG).show();
         }
         ft.add(container.getId(),this.loginFragment,"login")
-                .commit();
-//        ft.add(container.getId(),this.homeFragment,"login").commit();
+//        ft.add(container.getId(),this.homeFragment,"login")
 //        ft.add(container.getId(),this.pengumumanFragment,"")
-//                .commit();
+//        ft.add(container.getId(),this.buatPengumumanFragment,"")
+                .setReorderingAllowed(true)
+                .commit();
     }
 
 
@@ -67,7 +72,7 @@ public class MainPresenter {
         this.fragmentManager.setFragmentResultListener("changePage", (LifecycleOwner) ui, new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-                userToken.setToken(result.getString("token"));
+//                userToken.setToken(result.getString("token"));
                 changePage(result.getString("pages"));
             }
         });
@@ -77,20 +82,17 @@ public class MainPresenter {
     void changePage(String page){
         FragmentTransaction ft = this.fragmentManager.beginTransaction();
         if(page.equals("home")){
-            ft.remove(this.loginFragment);
-            ft.add((container.getId()),this.homeFragment);
+            ft.replace(container.getId(),this.homeFragment).addToBackStack(null).setReorderingAllowed(true);
         } else if (page.equals("frs")) {
-            ft.remove(this.homeFragment);
-            ft.add((container.getId()), this.frsFragment);
+            ft.replace(container.getId(),this.frsFragment).addToBackStack(null).setReorderingAllowed(true);
         } else if (page.equals("pertemuan")) {
-            ft.remove(this.homeFragment);
-            ft.add((container.getId()),this.pertemuanFragment);
+            ft.replace(container.getId(),this.pertemuanFragment).addToBackStack(null).setReorderingAllowed(true);
         } else if (page.equals("pengumuman")) {
-            ft.remove(this.homeFragment);
-            ft.add((container.getId()),this.pengumumanFragment);
-        } else if(page.equals("dPengumuman")){
-            ft.remove(this.pengumumanFragment);
-            ft.add((container.getId()),this.detailPengumumanFragment);
+            ft.replace(container.getId(),this.pengumumanFragment).addToBackStack(null).setReorderingAllowed(true);
+        } else if (page.equals("dPengumuman")){
+            ft.replace(container.getId(),this.detailPengumumanFragment).addToBackStack(null).setReorderingAllowed(true);
+        } else if (page.equals("buatPengumuman")){
+            ft.replace(container.getId(),this.buatPengumumanFragment).addToBackStack(null).setReorderingAllowed(true);
         }
         ft.commit();
     }
