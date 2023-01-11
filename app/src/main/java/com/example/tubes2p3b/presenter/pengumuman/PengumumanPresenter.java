@@ -51,6 +51,7 @@ public class PengumumanPresenter{
     Spinner spFilter;
     String[] tags;
     String[] id;
+    boolean[] first = {true};
 
 
     public PengumumanPresenter(IPengumuman.UI ui) {
@@ -217,10 +218,12 @@ public class PengumumanPresenter{
         //get status code here
         String statusCode = String.valueOf(response.networkResponse.statusCode);
         //get response body and parse with appropriate encoding
+
         if(response.networkResponse.data!=null) {
             try {
                 body = new String(response.networkResponse.data,"UTF-8");
                 JSONObject object = new JSONObject(body);
+                System.out.println(object);
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             } catch (JSONException e) {
@@ -266,8 +269,8 @@ public class PengumumanPresenter{
         JSONArray jsonArray = new JSONArray(response);
         this.tags = new String[jsonArray.length()+1];
         this.id = new String[jsonArray.length()+1];
-        id[0]="";
-        tags[0]="";
+        id[0]="Pilih filte";
+        tags[0]="Pilih filter";
         for (int i = 1; i < jsonArray.length()+1; i++)
         {
             tags[i] = jsonArray.getJSONObject(i-1).getString("tag");
@@ -275,14 +278,17 @@ public class PengumumanPresenter{
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(ui.getActivity(),android.R.layout.simple_spinner_dropdown_item,tags);
-        System.out.println(adapter);
         spFilter.setAdapter(adapter);
         spFilter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                getAnnouncementbyFilter(id[i]);
+                if (i==0&&first[0]==false){
+                    getAnnouncementbyFilter(id[i]);
+                }else if(i>0){
+                    getAnnouncementbyFilter(id[i]);
+                    first[0]=false;
+                }
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
@@ -290,9 +296,9 @@ public class PengumumanPresenter{
     }
 
     public void getAnnouncementbyFilter(String id){
-        if(!id.equals("")){
+        if(!id.equals("Pilih filter")){
+            loadingProgress.loadingDialog();
             this.listPengumuman.clear();
-            System.out.println("hello");
             String Base_URL = "https://ifportal.labftis.net/api/v1/announcements?filter[tags][]="+id+"&limit=10";
             RequestQueue queue = Volley.newRequestQueue(ui.getContext());
             StringRequest stringRequest = new StringRequest(Request.Method.GET,
@@ -319,6 +325,9 @@ public class PengumumanPresenter{
                 }
             };
             queue.add(stringRequest);
+        }else{
+            this.listPengumuman.clear();
+            getAnnouncement();
         }
     }
 

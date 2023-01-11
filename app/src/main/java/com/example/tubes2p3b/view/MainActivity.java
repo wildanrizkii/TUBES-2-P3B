@@ -21,23 +21,12 @@ public class MainActivity extends AppCompatActivity implements IMain.UI, IRouter
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-//
+
         presenter = new MainPresenter(this);
         presenter.inittransaction(binding.container);
         presenter.setFragmentManagerResultListener();
 
-        RouterAPI api = new RouterAPI(this);
-//        api.getUser();
-//        api.getAcademicYears();
-//        api.getUser();
-//        api.getDetailAnnouncement();
-//        api.postUser();
-//        api.getMatkul();
-//        api.deleteTags();
-//        api.getTags();
-
     }
-
     @Override
     public Context getContext() {
         return this;

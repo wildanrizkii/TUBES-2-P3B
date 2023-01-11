@@ -4,16 +4,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.tubes2p3b.databinding.FragmentFrsBinding;
-import com.example.tubes2p3b.presenter.FrsPresenter;
+import com.example.tubes2p3b.presenter.frs.FrsPresenter;
 import com.example.tubes2p3b.presenter.Interface.IFrs;
 
 public class FrsFragment extends Fragment implements IFrs.UI {

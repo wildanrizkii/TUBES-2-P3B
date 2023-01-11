@@ -17,11 +17,9 @@ import java.util.Map;
 
 public class BuatPertemuanPresenter implements IRouterAPI {
     IBuatPertemuan.UI ui;
-    RouterAPI api;
 
     public BuatPertemuanPresenter(IBuatPertemuan.UI ui){
         this.ui = ui;
-        api = new RouterAPI(ui);
     }
 
     public void setAppointment(){

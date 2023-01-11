@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.tubes2p3b.databinding.FragmentHomeBinding;
 import com.example.tubes2p3b.model.UserToken;
-import com.example.tubes2p3b.presenter.HomePresenter;
+import com.example.tubes2p3b.presenter.home.HomePresenter;
 import com.example.tubes2p3b.presenter.Interface.IHome;
 
 public class HomeFragment extends Fragment implements IHome.UI{

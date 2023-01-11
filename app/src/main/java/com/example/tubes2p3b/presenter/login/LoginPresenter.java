@@ -1,4 +1,4 @@
-package com.example.tubes2p3b.presenter;
+package com.example.tubes2p3b.presenter.login;
 
 import static com.example.tubes2p3b.model.WebService.AUTHENTICATE;
 import static com.example.tubes2p3b.model.WebService.JSON;

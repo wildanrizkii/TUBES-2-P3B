@@ -13,11 +13,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.tubes2p3b.databinding.FragmentLoginBinding;
-import com.example.tubes2p3b.model.User;
 import com.example.tubes2p3b.adapter.Dropdown;
-import com.example.tubes2p3b.presenter.LoginPresenter;
+import com.example.tubes2p3b.presenter.login.LoginPresenter;
 import com.example.tubes2p3b.presenter.Interface.ILogin;
-import com.google.gson.Gson;
 
 public class LoginFragment extends Fragment implements ILogin.UI{
     FragmentLoginBinding binding;

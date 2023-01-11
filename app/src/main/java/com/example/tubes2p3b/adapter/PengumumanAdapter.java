@@ -23,6 +23,7 @@ public class PengumumanAdapter extends BaseAdapter {
     }
     public void setListPengumumen(ArrayList<ListPengumuman> listPengumuman){
         this.listPengumuman = listPengumuman;
+        notifyDataSetChanged();
     }
 
     @Override

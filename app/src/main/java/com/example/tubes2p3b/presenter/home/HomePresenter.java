@@ -1,4 +1,4 @@
-package com.example.tubes2p3b.presenter;
+package com.example.tubes2p3b.presenter.home;
 
 import android.os.Bundle;
 import android.view.View;
