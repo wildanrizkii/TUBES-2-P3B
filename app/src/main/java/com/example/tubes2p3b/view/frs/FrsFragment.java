@@ -33,21 +33,9 @@ public class FrsFragment extends Fragment implements IFrs.UI {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentFrsBinding.inflate(inflater, container, false);
         presenter = new FrsPresenter(this);
-        presenter.initYears();
+        presenter.initYears(binding.containerItem);
+        presenter.itemClick();
         return binding.getRoot();
     }
 
-    @Override
-    public void setContainer(ListAdapter listAdapter) {
-        binding.containerItem.setAdapter(listAdapter);
-    }
-
-    @Override
-    public void setItemOnClick() {
-        binding.containerItem.setOnItemClickListener(this::setItemOnClick);
-    }
-
-    private void setItemOnClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-    }
 }
