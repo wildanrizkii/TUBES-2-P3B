@@ -4,13 +4,12 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentResultListener;
 import androidx.fragment.app.FragmentResultOwner;
-import androidx.lifecycle.LifecycleOwner;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -20,13 +19,15 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.tubes2p3b.adapter.PengumumanAdapter;
+import com.example.tubes2p3b.adapter.SpFilter;
 import com.example.tubes2p3b.model.DetailPengumuman;
 import com.example.tubes2p3b.model.ListPengumuman;
 import com.example.tubes2p3b.model.LoadingProgress;
+import com.example.tubes2p3b.model.RouterAPI;
 import com.example.tubes2p3b.model.TokenPreferences;
 import com.example.tubes2p3b.presenter.Interface.IPengumuman;
-import com.example.tubes2p3b.presenter.Interface.IRouterAPI;
 import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
 import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
@@ -42,20 +43,22 @@ public class PengumumanPresenter{
     PengumumanAdapter adapter;
     private ArrayList<ListPengumuman> listPengumuman;
     IPengumuman.UI ui;
-    RouterAPI api;
     String next;
     ListView container;
     Gson gson = new Gson();
     DetailPengumuman detailPengumuman;
     LoadingProgress loadingProgress;
     TokenPreferences tokenPreferences;
+    Spinner spFilter;
+    String[] tags;
+    String[] id;
+
 
     public PengumumanPresenter(IPengumuman.UI ui) {
         this.ui = ui;
         listPengumuman = new ArrayList<>();
         tokenPreferences = new TokenPreferences(ui.getActivity());
         String s =tokenPreferences.getRole();
-        System.out.println(s);
         if(s.equals("student")){
             ui.invisibleButton();
         } else{
@@ -69,8 +72,8 @@ public class PengumumanPresenter{
         loadingProgress = new LoadingProgress(ui.getActivity());
         loadingProgress.loadingDialog();
         getAnnouncement();
-
     }
+
     public FragmentResultOwner getParentFragmentManager() {
         return ui.getParentFragmentManager();
     }
@@ -91,19 +94,12 @@ public class PengumumanPresenter{
 
     public void getAnnouncement(){
         String Base_URL = "https://ifportal.labftis.net/api/v1/announcements?limit=10";
-        System.out.println("Diterima di presenter " + sp.getString("id", ""));
-        if (!sp.getString("id", "").equals(""))
-        {
-            Base_URL = "https://ifportal.labftis.net/api/v1/announcements?filter[tags][]=" + sp.getString("id", "") + "&limit=10";
-
-        }
         RequestQueue queue = Volley.newRequestQueue(ui.getContext());
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
                 Base_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
-                    sp.edit().remove("id").apply();
                     getResponseAnnounce(response);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -147,7 +143,6 @@ public class PengumumanPresenter{
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String,String> map = new HashMap<>();
-                System.out.println(tokenPreferences.getToken());
                 map.put("Authorization","Bearer "+tokenPreferences.getToken());
                 return map;
             }
@@ -190,9 +185,10 @@ public class PengumumanPresenter{
         Bundle page = new Bundle();
         res.putParcelable("detail", (Parcelable) detailPengumuman);
         page.putString("pages","dPengumuman");
-        ui.getParentFragmentManager().setFragmentResult("changePage",page);
+        getParentFragmentManager().setFragmentResult("changePage",page);
         getParentFragmentManager().setFragmentResult("detailPengumuman",res);
     }
+
     private void getResponseAnnounce(String response) throws JSONException {
         this.next ="";
         ArrayList<ListPengumuman> simpan;
@@ -203,6 +199,7 @@ public class PengumumanPresenter{
         for (ListPengumuman list: simpan) {
             listPengumuman.add(list);
         }
+
         if(this.next.length()>0&&!this.next.equals("null")){
             getAnnouncement(this.next);
         } else {
@@ -225,7 +222,6 @@ public class PengumumanPresenter{
             try {
                 body = new String(response.networkResponse.data,"UTF-8");
                 JSONObject object = new JSONObject(body);
-                System.out.println(object.get("errcode"));
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             } catch (JSONException e) {
@@ -236,4 +232,100 @@ public class PengumumanPresenter{
         Toast.makeText(ui.getContext(),"Tidak dapat memuat data",Toast.LENGTH_LONG).show();
         //        StyleableToast.makeText(ui.getContext(), "Tidak dapat memuat data", Toast.LENGTH_LONG, R.style.myToastError).show();
     }
+
+
+    public void getTags(){
+        String Base_URL = "https://ifportal.labftis.net/api/v1/tags/";
+        RequestQueue queue = Volley.newRequestQueue(ui.getContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.GET,
+                Base_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    getResponseTags(response);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                getErrResponse(error);
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> map = new HashMap<>();
+                map.put("Authorization","Bearer " + tokenPreferences.getToken());
+                return map;
+            }
+        };
+        queue.add(stringRequest);
+    }
+
+    private void getResponseTags(String response) throws JSONException {
+        JSONArray jsonArray = new JSONArray(response);
+        this.tags = new String[jsonArray.length()+1];
+        this.id = new String[jsonArray.length()+1];
+        id[0]="";
+        tags[0]="";
+        for (int i = 1; i < jsonArray.length()+1; i++)
+        {
+            tags[i] = jsonArray.getJSONObject(i-1).getString("tag");
+            id[i] = jsonArray.getJSONObject(i-1).getString("id");
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(ui.getActivity(),android.R.layout.simple_spinner_dropdown_item,tags);
+        System.out.println(adapter);
+        spFilter.setAdapter(adapter);
+        spFilter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                getAnnouncementbyFilter(id[i]);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+    }
+
+    public void getAnnouncementbyFilter(String id){
+        if(!id.equals("")){
+            this.listPengumuman.clear();
+            System.out.println("hello");
+            String Base_URL = "https://ifportal.labftis.net/api/v1/announcements?filter[tags][]="+id+"&limit=10";
+            RequestQueue queue = Volley.newRequestQueue(ui.getContext());
+            StringRequest stringRequest = new StringRequest(Request.Method.GET,
+                    Base_URL, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    try {
+                        getResponseAnnounce(response);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    getErrResponse(error);
+                }
+            }){
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String,String> map = new HashMap<>();
+                    map.put("Authorization","Bearer "+tokenPreferences.getToken());
+                    return map;
+                }
+            };
+            queue.add(stringRequest);
+        }
+    }
+
+    public void initTagfilter(Spinner spFilter){
+        this.spFilter = spFilter;
+        getTags();
+    }
+
 }

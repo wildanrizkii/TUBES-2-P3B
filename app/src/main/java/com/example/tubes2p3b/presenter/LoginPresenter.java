@@ -127,11 +127,6 @@ public class LoginPresenter implements ILogin.Websevice{
         queue.add(stringRequest);
     }
 
-    public FragmentResultOwner getParentFragmentManager() {
-        return ui.getParentFragmentManager();
-    }
-
-
     public void getResponse(String response){
         UserRes token = gson.fromJson(response, UserRes.class);
         Bundle res = new Bundle();
