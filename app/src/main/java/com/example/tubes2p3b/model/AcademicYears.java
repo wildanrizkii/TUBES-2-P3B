@@ -15,9 +15,7 @@ public class AcademicYears {
         return academic_years;
     }
 
-    public String getacademic(){
-
-        return null;
+    public String getActive_years(){
+        return this.active_years;
     }
-
 }

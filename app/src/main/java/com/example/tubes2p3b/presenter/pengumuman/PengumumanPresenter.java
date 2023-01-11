@@ -39,7 +39,6 @@ public class PengumumanPresenter{
     private ArrayList<ListPengumuman> listPengumuman;
     IPengumuman.UI ui;
     String next;
-    String token;
     ListView container;
     Gson gson = new Gson();
     DetailPengumuman detailPengumuman;

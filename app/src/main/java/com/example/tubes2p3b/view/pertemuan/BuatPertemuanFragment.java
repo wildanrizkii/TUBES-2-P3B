@@ -28,7 +28,6 @@ public class BuatPertemuanFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentBuatPertemuanBinding.inflate(inflater, container, false);
         binding.btnSimpan.setOnClickListener(this::onClickSimpan);
-
         return binding.getRoot();
     }
 

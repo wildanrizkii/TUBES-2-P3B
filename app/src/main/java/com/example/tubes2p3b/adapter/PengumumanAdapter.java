@@ -24,6 +24,7 @@ public class PengumumanAdapter extends BaseAdapter {
     public void setListPengumumen(ArrayList<ListPengumuman> listPengumuman){
         this.listPengumuman = listPengumuman;
     }
+
     @Override
     public int getCount() {
         return listPengumuman.size();

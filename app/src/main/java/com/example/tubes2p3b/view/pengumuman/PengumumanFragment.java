@@ -34,19 +34,13 @@ public class PengumumanFragment extends Fragment implements IPengumuman.UI {
         binding = FragmentPengumumanBinding.inflate(inflater,container,false);
         presenter = new PengumumanPresenter(this);
         binding.btnTambahPengumuman.setOnClickListener(this::onClickTambah);
+        presenter.loadPengumuman(binding.listItem);
+        presenter.itemClick();
         return binding.getRoot();
     }
 
     private void onClickTambah(View view) {
         presenter.tambahPengumuman();
-    }
-
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        presenter.loadPengumuman(binding.listItem);
-        presenter.itemClick();
     }
 
     @Override

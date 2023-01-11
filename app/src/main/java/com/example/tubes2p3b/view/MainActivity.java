@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity implements IMain.UI, IRouter
         presenter = new MainPresenter(this);
         presenter.inittransaction(binding.container);
         presenter.setFragmentManagerResultListener();
-        handler = new Handler();
 
         RouterAPI api = new RouterAPI(this);
 //        api.getUser();
