@@ -10,4 +10,7 @@
 
     <color name="secondary">#EEF1FF</color>
     <color name="colorBG">#7059FF</color>
+
+    <color name="background">#EFE4F3</color>
+    <color name="gray">#C8C8C8</color>
 </resources>

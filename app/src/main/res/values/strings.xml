@@ -43,4 +43,15 @@
     <string name="nama_dosen">Nama Dosen</string>
     <string name="judul_pertemuan">judul_pertemuan</string>
 
+    //Headings
+    <string name="heading_one">Set a clear agenda</string>
+    <string name="heading_two">Find out what is changed</string>
+    <string name="heading_three">Register your courses</string>
+
+    //Description
+    <string name="desc_one">By using the Meeting feature, we can manage meetings with lecturers and students without time conflicts</string>
+    <string name="desc_two">By using the Notification feature, we can see various kinds of the latest news</string>
+    <string name="desc_three">By using the FRS feature, we can view course prerequisites and register courses</string>
+
+
 </resources>
