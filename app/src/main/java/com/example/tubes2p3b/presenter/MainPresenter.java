@@ -59,9 +59,9 @@ public class MainPresenter {
         if(isOnlien == null){
             Toast.makeText(ui.getContext(), "Anda sedang offline",Toast.LENGTH_LONG).show();
         }
-//        ft.add(container.getId(),this.loginFragment,"login")
+        ft.add(container.getId(),this.loginFragment,"login")
 //        ft.add(container.getId(),this.homeFragment,"login")
-        ft.add(container.getId(),this.pengumumanFragment,"")
+//        ft.add(container.getId(),this.pengumumanFragment,"")
 //        ft.add(container.getId(),this.buatPengumumanFragment,"")
 //        ft.add(container.getId(),this.frsFragment,"")
                 .setReorderingAllowed(true)
