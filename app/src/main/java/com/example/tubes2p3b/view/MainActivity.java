@@ -16,7 +16,6 @@ import com.example.tubes2p3b.presenter.MainPresenter;
 public class MainActivity extends AppCompatActivity implements IMain.UI, IRouterAPI.UI {
     MainPresenter presenter;
     ActivityMainBinding binding;
-    Handler handler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

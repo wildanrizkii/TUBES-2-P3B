@@ -61,9 +61,9 @@ public class MainPresenter {
         }
 //        ft.add(container.getId(),this.loginFragment,"login")
 //        ft.add(container.getId(),this.homeFragment,"login")
-//        ft.add(container.getId(),this.pengumumanFragment,"")
+        ft.add(container.getId(),this.pengumumanFragment,"")
 //        ft.add(container.getId(),this.buatPengumumanFragment,"")
-        ft.add(container.getId(),this.frsFragment,"")
+//        ft.add(container.getId(),this.frsFragment,"")
                 .setReorderingAllowed(true)
                 .commit();
     }

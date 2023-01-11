@@ -4,11 +4,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.tubes2p3b.adapter.SpFilter;
 import com.example.tubes2p3b.databinding.FragmentPengumumanBinding;
 import com.example.tubes2p3b.model.ListPengumuman;
 import com.example.tubes2p3b.presenter.Interface.IPengumuman;
@@ -36,12 +38,14 @@ public class PengumumanFragment extends Fragment implements IPengumuman.UI {
         binding.btnTambahPengumuman.setOnClickListener(this::onClickTambah);
         presenter.loadPengumuman(binding.listItem);
         presenter.itemClick();
+        presenter.initTagfilter(binding.spFilter);
         return binding.getRoot();
     }
 
     private void onClickTambah(View view) {
         presenter.tambahPengumuman();
     }
+
 
     @Override
     public void visibleTombol() {

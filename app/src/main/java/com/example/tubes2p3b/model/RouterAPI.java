@@ -91,6 +91,7 @@ public class RouterAPI {
         queue.add(stringRequest);
     }
 
+
     public void getRole(){
         String Base_URL = "https://ifportal.labftis.net/api/v1/users/self";
         RequestQueue queue = Volley.newRequestQueue(ui.getContext());
@@ -214,13 +215,13 @@ public class RouterAPI {
     }
 
     public void getMatkul(){
-        String Base_URL = "https://ifportal.labftis.net/api/v1/courses/";
+        String Base_URL = "https://ifportal.labftis.net/api/v1/courses";
         RequestQueue queue = Volley.newRequestQueue(ui.getContext());
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
                 Base_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-//                GetResponse(response);
+//                getResponseCousrses(response);
                 System.out.println(response);
             }
         }, new Response.ErrorListener() {
@@ -328,6 +329,7 @@ public class RouterAPI {
         };
         queue.add(stringRequest);
     }
+
     public void deleteTags(){
         String Base_URL = "https://ifportal.labftis.net/api/v1/tags/78d5683a-a978-49eb-8d9d-58ad23bb7379";
         RequestQueue queue = Volley.newRequestQueue(ui.getContext());
@@ -400,6 +402,10 @@ public class RouterAPI {
         JSONObject jsonObject = new JSONObject(response);
         System.out.println(jsonObject);
     }
+    private void getResponseCousrses(String response) throws JSONException {
+        JSONObject jsonObject = new JSONObject(response);
+        System.out.println(jsonObject);
+    }
     private void getResponseDeleteTags(String response) throws JSONException {
         JSONObject jsonObject = new JSONObject(response);
         System.out.println(jsonObject);
@@ -418,7 +424,6 @@ public class RouterAPI {
         JSONArray jsonArray = jsonObject.getJSONArray("roles");
         System.out.println(jsonArray);
     }
-
     public void getErrResponse(VolleyError response)  {
         String body;
         //get status code here
@@ -436,5 +441,6 @@ public class RouterAPI {
             }
         }
     }
+
 
 }

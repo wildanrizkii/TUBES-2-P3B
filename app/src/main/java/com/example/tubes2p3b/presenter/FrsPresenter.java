@@ -1,5 +1,10 @@
 package com.example.tubes2p3b.presenter;
 
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -8,7 +13,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.tubes2p3b.adapter.FrsAdapter;
-import com.example.tubes2p3b.adapter.PengumumanAdapter;
 import com.example.tubes2p3b.model.AcademicYears;
 import com.example.tubes2p3b.presenter.Interface.IFrs;
 import com.google.gson.Gson;
@@ -24,19 +28,32 @@ public class FrsPresenter {
     IFrs.UI ui;
     AcademicYears academicYears;
     FrsAdapter adapter;
+    ListView listView;
 
     public FrsPresenter(IFrs.UI ui) {
         this.ui = ui;
     }
 
-    public void initYears(){
+    public void initYears(ListView view){
         getAcademicYears();
         this.adapter = new FrsAdapter(ui.getContext());
+        this.listView = view;
     }
 
     public void creatAdapater(){
         adapter.setListAcademic(academicYears.getAcademic_years());
-        ui.setContainer(adapter);
+        listView.setAdapter(adapter);
+    }
+
+    private void onClickItem(AdapterView<?> adapterView, View view, int i, long l) {
+        System.out.println(academicYears.getAcademic_years().get(i));
+        Bundle page = new Bundle();
+        page.putString("pages","tahunFrs");
+        ui.getParentFragmentManager().setFragmentResult("changePage",page);
+    }
+
+    public void itemClick(){
+        listView.setOnItemClickListener(this::onClickItem);
     }
 
     public void getAcademicYears(){
