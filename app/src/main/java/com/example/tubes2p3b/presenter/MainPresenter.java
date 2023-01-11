@@ -39,7 +39,7 @@ public class MainPresenter {
 
     public MainPresenter(IMain.UI ui){
         this.ui = ui;
-//        userToken = new UserToken();
+        userToken = new UserToken();
         this.loginFragment = LoginFragment.newInstance();
         this.homeFragment = HomeFragment.newInstance();
         this.frsFragment = FrsFragment.newInstance();
@@ -73,7 +73,7 @@ public class MainPresenter {
         this.fragmentManager.setFragmentResultListener("changePage", (LifecycleOwner) ui, new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-//                userToken.setToken(result.getString("token"));
+                userToken.setToken(result.getString("token"));
                 changePage(result.getString("pages"));
             }
         });

@@ -7,7 +7,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentResultListener;
 import androidx.fragment.app.FragmentResultOwner;
+import androidx.lifecycle.LifecycleOwner;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -22,6 +25,7 @@ import com.example.tubes2p3b.model.ListPengumuman;
 import com.example.tubes2p3b.model.LoadingProgress;
 import com.example.tubes2p3b.model.TokenPreferences;
 import com.example.tubes2p3b.presenter.Interface.IPengumuman;
+import com.example.tubes2p3b.presenter.Interface.IRouterAPI;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -38,6 +42,7 @@ public class PengumumanPresenter{
     PengumumanAdapter adapter;
     private ArrayList<ListPengumuman> listPengumuman;
     IPengumuman.UI ui;
+    RouterAPI api;
     String next;
     ListView container;
     Gson gson = new Gson();
@@ -65,7 +70,6 @@ public class PengumumanPresenter{
         loadingProgress.loadingDialog();
         getAnnouncement();
 
-
     }
     public FragmentResultOwner getParentFragmentManager() {
         return ui.getParentFragmentManager();
@@ -87,12 +91,19 @@ public class PengumumanPresenter{
 
     public void getAnnouncement(){
         String Base_URL = "https://ifportal.labftis.net/api/v1/announcements?limit=10";
+        System.out.println("Diterima di presenter " + sp.getString("id", ""));
+        if (!sp.getString("id", "").equals(""))
+        {
+            Base_URL = "https://ifportal.labftis.net/api/v1/announcements?filter[tags][]=" + sp.getString("id", "") + "&limit=10";
+
+        }
         RequestQueue queue = Volley.newRequestQueue(ui.getContext());
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
                 Base_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
+                    sp.edit().remove("id").apply();
                     getResponseAnnounce(response);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -179,7 +190,7 @@ public class PengumumanPresenter{
         Bundle page = new Bundle();
         res.putParcelable("detail", (Parcelable) detailPengumuman);
         page.putString("pages","dPengumuman");
-        getParentFragmentManager().setFragmentResult("changePage",page);
+        ui.getParentFragmentManager().setFragmentResult("changePage",page);
         getParentFragmentManager().setFragmentResult("detailPengumuman",res);
     }
     private void getResponseAnnounce(String response) throws JSONException {
@@ -225,6 +236,4 @@ public class PengumumanPresenter{
         Toast.makeText(ui.getContext(),"Tidak dapat memuat data",Toast.LENGTH_LONG).show();
         //        StyleableToast.makeText(ui.getContext(), "Tidak dapat memuat data", Toast.LENGTH_LONG, R.style.myToastError).show();
     }
-
-
 }

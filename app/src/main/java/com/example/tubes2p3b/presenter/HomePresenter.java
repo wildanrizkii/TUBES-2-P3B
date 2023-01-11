@@ -1,5 +1,8 @@
 package com.example.tubes2p3b.presenter;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 

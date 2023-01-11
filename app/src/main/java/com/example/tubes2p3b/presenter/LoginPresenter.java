@@ -7,6 +7,7 @@ import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.icu.util.Output;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.View;
@@ -126,6 +127,10 @@ public class LoginPresenter implements ILogin.Websevice{
         queue.add(stringRequest);
     }
 
+    public FragmentResultOwner getParentFragmentManager() {
+        return ui.getParentFragmentManager();
+    }
+
 
     public void getResponse(String response){
         UserRes token = gson.fromJson(response, UserRes.class);
@@ -138,12 +143,13 @@ public class LoginPresenter implements ILogin.Websevice{
 
     public void getErrResponse(VolleyError response)  {
         String body;
+        //get status code here
         String statusCode = String.valueOf(response.networkResponse.statusCode);
+        //get response body and parse with appropriate encoding
         if(response.networkResponse.data!=null) {
             try {
                 body = new String(response.networkResponse.data,"UTF-8");
                 JSONObject object = new JSONObject(body);
-                System.out.println(object);
                 if (object.get("errcode").toString().equals("E_AUTH_FAILED")){
                     Toast.makeText(ui.getContext(),"Data tidak sesuai",Toast.LENGTH_LONG).show();
                 } else if(object.get("errcode").toString().equals("E_UNKNOWN_FATAL")){
@@ -169,6 +175,4 @@ public class LoginPresenter implements ILogin.Websevice{
     public Context getContext() {
         return getContext();
     }
-
-
 }
