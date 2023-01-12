@@ -1,5 +1,6 @@
 package com.example.tubes2p3b.view;
 
+import androidx.annotation.UiThread;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;

@@ -59,7 +59,7 @@ public class PengumumanPresenter{
         listPengumuman = new ArrayList<>();
         tokenPreferences = new TokenPreferences(ui.getActivity());
         String s =tokenPreferences.getRole();
-        if(s.equals("student")){
+        if(s.equals("student")||s.equals("lecturer")){
             ui.invisibleButton();
         } else{
             ui.visibleTombol();
@@ -70,7 +70,6 @@ public class PengumumanPresenter{
     public void loadPengumuman(ListView view){
         container = view;
         loadingProgress = new LoadingProgress(ui.getActivity());
-        loadingProgress.loadingDialog();
         getAnnouncement();
     }
 
@@ -93,6 +92,7 @@ public class PengumumanPresenter{
     }
 
     public void getAnnouncement(){
+        loadingProgress.loadingDialog();
         String Base_URL = "https://ifportal.labftis.net/api/v1/announcements?limit=10";
         RequestQueue queue = Volley.newRequestQueue(ui.getContext());
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
@@ -283,7 +283,8 @@ public class PengumumanPresenter{
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i==0&&first[0]==false){
-                    getAnnouncementbyFilter(id[i]);
+                    listPengumuman.clear();
+                    getAnnouncement();
                 }else if(i>0){
                     getAnnouncementbyFilter(id[i]);
                     first[0]=false;
@@ -296,7 +297,6 @@ public class PengumumanPresenter{
     }
 
     public void getAnnouncementbyFilter(String id){
-        if(!id.equals("Pilih filter")){
             loadingProgress.loadingDialog();
             this.listPengumuman.clear();
             String Base_URL = "https://ifportal.labftis.net/api/v1/announcements?filter[tags][]="+id+"&limit=10";
@@ -325,10 +325,6 @@ public class PengumumanPresenter{
                 }
             };
             queue.add(stringRequest);
-        }else{
-            this.listPengumuman.clear();
-            getAnnouncement();
-        }
     }
 
     public void initTagfilter(Spinner spFilter){

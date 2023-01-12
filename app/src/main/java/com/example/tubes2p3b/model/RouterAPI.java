@@ -342,7 +342,6 @@ public class RouterAPI {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-//                System.out.println(response);
             }
         }, new Response.ErrorListener() {
             @Override

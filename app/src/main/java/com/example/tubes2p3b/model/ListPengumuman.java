@@ -81,6 +81,7 @@ public class ListPengumuman implements Parcelable {
         parcel.writeParcelable(author, i);
         parcel.writeTypedList(tags);
     }
+
 }
 
 class Author implements Parcelable{

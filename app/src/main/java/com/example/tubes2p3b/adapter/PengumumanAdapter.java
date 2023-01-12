@@ -41,6 +41,7 @@ public class PengumumanAdapter extends BaseAdapter {
         return i;
     }
 
+
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         binding = ListPengumumanBinding.inflate(LayoutInflater.from(viewGroup.getContext()));

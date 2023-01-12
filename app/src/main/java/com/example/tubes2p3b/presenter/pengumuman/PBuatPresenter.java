@@ -15,6 +15,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.tubes2p3b.model.BuatPengumuman;
 import com.example.tubes2p3b.model.LoadingProgress;
+import com.example.tubes2p3b.model.TokenPreferences;
 import com.example.tubes2p3b.model.tagsbuat;
 import com.example.tubes2p3b.presenter.Interface.IBuatPengumuman;
 import com.google.gson.Gson;
@@ -33,10 +34,13 @@ public class PBuatPresenter {
     Gson gson;
     Handler handler;
     boolean error;
+    TokenPreferences tokenPreferences;
     private LoadingProgress loadingProgress;
     public PBuatPresenter(IBuatPengumuman.UI ui) {
         this.ui = ui;
         loadingProgress = new LoadingProgress(ui.getActivity());
+        tokenPreferences = new TokenPreferences(ui.getActivity());
+
     }
 
     public void buatPengumuman(String title, String tag,String content){
@@ -58,43 +62,53 @@ public class PBuatPresenter {
     }
 
     void post(String tag){
-
         error = false;
         handler = new Handler();
         String[] str = null;
         gson=new Gson();
         str= tag.split(" ");
 
-        for (int i = 0; i < 10; i++) {
-            System.out.println(i);
-        }
         String[] finalStr = str;
-        Thread thread1 = new Thread(()->{
-            handler.post(()->{
-                for (String s: finalStr) {
-                    tagsbuat ta = new tagsbuat(s);
-                    postTags(gson.toJson(ta));
-                }
-            });
-        });
 
-        Thread thread2 = new Thread(()->{
-            handler.post(()->{
-                    postAnnouncement(gson.toJson(buatPengumuman));
-            });
-        });
+        tagsbuat ta = new tagsbuat(tag);
+        postTags(gson.toJson(ta));
 
-        try {
-            thread2.sleep(5000);
-            if(error==false){
-                thread2.start();
-            }
-            loadingProgress.dialogDismiss();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        thread1.start();
-        thread2.start();
+//        Runnable po = new Runnable() {
+//            @Override
+//            public void run() {
+//                for (String s: finalStr) {
+//                    tagsbuat ta = new tagsbuat(s);
+//                    postTags(gson.toJson(ta));
+//                }
+//            }
+//        };
+//        Runnable ann = new Runnable() {
+//            @Override
+//            public void run() {
+//                postAnnouncement(gson.toJson(buatPengumuman));
+//            }
+//        };
+//
+//        Thread thread1 = new Thread(()->{
+//            handler.post(po);
+//        });
+//
+//        Thread thread2 = new Thread(()->{
+//            handler.post(ann);
+//        });
+//
+//        try {
+//            thread2.wait(5000);
+//            if(error==false){
+//                thread2.start();
+//            }
+//            loadingProgress.dialogDismiss();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//
+//        thread1.start();
+//        thread2.start();
 
     }
 
@@ -128,7 +142,7 @@ public class PBuatPresenter {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String,String> map = new HashMap<>();
-                map.put("Authorization","Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJfaWQiOiI2ZTY2ODZmMC0yOTZlLTRjNzItOGE0NS1hNmFjMWVkNDhlNDQiLCJyb2xlIjoiYWRtaW4ifSwiaWF0IjoxNjcyMzYwOTQ4fQ.KF5P7d9EBpH62c8y9cTccV9NIs3qZmInzLUp5SnjZqI");
+                map.put("Authorization","Bearer "+tokenPreferences.getToken());
                 return map;
             }
         };
@@ -137,9 +151,6 @@ public class PBuatPresenter {
 
 
     public void postTags(String json) {
-        for (int i = 0; i < 1000; i++) {
-            System.out.println("dalamostag " + i);
-        }
         String Base_URL = "https://ifportal.labftis.net/api/v1/tags/";
         RequestQueue queue = Volley.newRequestQueue(ui.getContext());
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
@@ -169,7 +180,7 @@ public class PBuatPresenter {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> map = new HashMap<>();
-                map.put("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJfaWQiOiI2ZTY2ODZmMC0yOTZlLTRjNzItOGE0NS1hNmFjMWVkNDhlNDQiLCJyb2xlIjoiYWRtaW4ifSwiaWF0IjoxNjcyMzYwOTQ4fQ.KF5P7d9EBpH62c8y9cTccV9NIs3qZmInzLUp5SnjZqI");
+                map.put("Authorization", "Bearer "+tokenPreferences.getToken());
                 return map;
             }
         };
@@ -178,6 +189,8 @@ public class PBuatPresenter {
     private void getResponseBuatTags(String response) throws JSONException {
         JSONObject jsonObject = new JSONObject(response);
         buatPengumuman.addTags(jsonObject.get("id").toString());
+        postAnnouncement(gson.toJson(buatPengumuman));
+
     }
 
     private void getResponseBuatAnn(String response) throws JSONException {
